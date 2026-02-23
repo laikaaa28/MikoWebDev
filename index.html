@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Template Gallery - Miko's Web Dev</title>
+    <title>Miko's Web Dev - Quality Websites Built for Your Business</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -27,6 +27,7 @@
             font-family: 'Work Sans', sans-serif;
             color: var(--text);
             line-height: 1.6;
+            overflow-x: hidden;
             background: var(--light);
         }
 
@@ -95,26 +96,40 @@
             width: 100%;
         }
 
-        /* Hero */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        /* Hero Section */
         .hero {
             margin-top: 80px;
-            padding: 6rem 2rem 4rem;
-            background: linear-gradient(135deg, var(--primary) 0%, #2a2a3e 100%);
-            color: white;
-            text-align: center;
+            min-height: 90vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 4rem;
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
             position: relative;
-            overflow: hidden;
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            top: -100px;
+            top: -50px;
             right: -100px;
-            width: 500px;
-            height: 500px;
+            width: 400px;
+            height: 400px;
             background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
             border-radius: 50%;
+            z-index: -1;
             animation: float 8s ease-in-out infinite;
         }
 
@@ -123,301 +138,51 @@
             50% { transform: translateY(-30px); }
         }
 
-        .hero-content {
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 8vw, 5rem);
+        .hero-content h1 {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            color: var(--primary);
             margin-bottom: 1.5rem;
-            color: white;
+            line-height: 1.1;
+            animation: fadeInUp 1s ease-out;
         }
 
-        .hero p {
-            font-size: 1.3rem;
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #555;
             margin-bottom: 2.5rem;
-            opacity: 0.95;
+            max-width: 500px;
+            animation: fadeInUp 1s ease-out 0.2s both;
         }
 
-        /* Filter Tabs */
-        .filter-section {
-            background: white;
-            padding: 2rem 2rem 1rem;
-            border-bottom: 1px solid rgba(0,0,0,0.08);
-            position: sticky;
-            top: 80px;
-            z-index: 100;
-        }
-
-        .filter-container {
-            max-width: 1400px;
-            margin: 0 auto;
+        .cta-buttons {
             display: flex;
-            justify-content: center;
-            gap: 1rem;
+            gap: 1.5rem;
             flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 0.8rem 2rem;
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Work Sans', sans-serif;
-        }
-
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* Gallery Grid */
-        .gallery {
-            padding: 5rem 2rem;
-            background: var(--light);
-        }
-
-        .gallery-grid {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
-            gap: 3rem;
-        }
-
-        .template-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            animation: fadeInUp 0.6s ease-out backwards;
-        }
-
-        .template-card:nth-child(1) { animation-delay: 0.1s; }
-        .template-card:nth-child(2) { animation-delay: 0.2s; }
-        .template-card:nth-child(3) { animation-delay: 0.3s; }
-        .template-card:nth-child(4) { animation-delay: 0.4s; }
-        .template-card:nth-child(5) { animation-delay: 0.5s; }
-        .template-card:nth-child(6) { animation-delay: 0.6s; }
-        .template-card:nth-child(7) { animation-delay: 0.7s; }
-        .template-card:nth-child(8) { animation-delay: 0.8s; }
-
-        .template-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-        }
-
-        .template-preview {
-            height: 350px;
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
-        }
-
-        .preview-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(26, 26, 46, 0.95) 0%, transparent 50%);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 2rem;
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-
-        .template-card:hover .preview-overlay {
-            opacity: 1;
-        }
-
-        .preview-overlay .preview-btn {
-            display: inline-block;
-            padding: 0.9rem 2rem;
-            background: var(--secondary);
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 8px;
-            text-align: center;
-            transition: all 0.3s;
-            margin-top: 1rem;
-        }
-
-        .preview-overlay .preview-btn:hover {
-            background: #e6c04e;
-            transform: translateY(-2px);
-        }
-
-        /* Template Preview Mockups */
-        .business-preview {
-            background: linear-gradient(135deg, #0a2540 0%, #425466 100%);
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .ecommerce-preview {
-            background: linear-gradient(135deg, #e8e4dc 0%, #a8b5a0 100%);
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .portfolio-preview {
-            background: linear-gradient(135deg, #1a1a1a 0%, #dc143c 100%);
-            padding: 2rem;
-            position: relative;
-        }
-
-        .landing-preview {
-            background: linear-gradient(135deg, #1e1b4b 0%, #6366f1 100%);
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .booking-preview {
-            background: linear-gradient(135deg, #14b8a6 0%, #0f766e 100%);
-            padding: 2rem;
-        }
-
-        .restaurant-preview {
-            background: linear-gradient(135deg, #7c2d12 0%, #292524 100%);
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .realestate-preview {
-            background: linear-gradient(135deg, #1e3a2f 0%, #8ba888 100%);
-            padding: 2rem;
-        }
-
-        .medical-preview {
-            background: linear-gradient(135deg, #0891b2 0%, #e0f2fe 100%);
-            padding: 2rem;
-        }
-
-        .mockup-header {
-            background: rgba(255, 255, 255, 0.15);
-            height: 40px;
-            border-radius: 8px;
-            backdrop-filter: blur(10px);
-        }
-
-        .mockup-hero {
-            background: rgba(255, 255, 255, 0.2);
-            height: 120px;
-            border-radius: 8px;
-            backdrop-filter: blur(10px);
-        }
-
-        .mockup-content {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-        }
-
-        .mockup-card {
-            background: rgba(255, 255, 255, 0.15);
-            height: 80px;
-            border-radius: 8px;
-            backdrop-filter: blur(10px);
-        }
-
-        /* Template Info */
-        .template-info {
-            padding: 2rem;
-        }
-
-        .template-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
-        .template-info h3 {
-            font-size: 1.8rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .template-category {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            background: var(--accent);
-            color: var(--primary);
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .template-info p {
-            color: #666;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-        }
-
-        .template-features {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .feature-tag {
-            background: var(--light);
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            color: var(--text);
-            border: 1px solid rgba(0,0,0,0.08);
-        }
-
-        .template-actions {
-            display: flex;
-            gap: 1rem;
+            animation: fadeInUp 1s ease-out 0.4s both;
         }
 
         .btn {
-            flex: 1;
-            padding: 0.9rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
+            padding: 1rem 2.5rem;
             text-decoration: none;
-            text-align: center;
-            font-family: 'Work Sans', sans-serif;
+            border-radius: 2px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
         }
 
         .btn-primary {
             background: var(--primary);
-            color: white;
+            color: var(--light);
+            box-shadow: 0 4px 15px rgba(26, 26, 46, 0.3);
         }
 
         .btn-primary:hover {
-            background: #2a2a3e;
+            background: #0f0f1e;
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 26, 46, 0.4);
         }
 
         .btn-secondary {
@@ -428,61 +193,59 @@
 
         .btn-secondary:hover {
             background: var(--primary);
-            color: white;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 6rem 2rem;
-            background: var(--primary);
-            color: white;
-            text-align: center;
-        }
-
-        .cta-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .cta-section h2 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            color: white;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta-section p {
-            font-size: 1.2rem;
-            margin-bottom: 2.5rem;
-            opacity: 0.95;
-        }
-
-        .cta-btn {
-            display: inline-block;
-            padding: 1.2rem 3rem;
-            background: var(--secondary);
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-
-        .cta-btn:hover {
-            background: #e6c04e;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--primary);
             color: var(--light);
-            padding: 3rem 2rem 1.5rem;
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: fadeIn 1.2s ease-out 0.3s both;
+        }
+
+        .visual-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 4px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            position: relative;
+            transform: rotate(-2deg);
+        }
+
+        .visual-card::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(135deg, var(--secondary) 0%, transparent 50%);
+            opacity: 0.1;
+            border-radius: 4px;
+            z-index: -1;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
             text-align: center;
         }
 
-        footer p {
-            color: rgba(250, 250, 248, 0.7);
+        .stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         @keyframes fadeInUp {
@@ -496,562 +259,1457 @@
             }
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Services Section */
+        .services {
+            padding: 6rem 2rem;
+            background: var(--primary);
+            color: var(--light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem 2rem;
+            border-radius: 4px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .service-card p {
+            opacity: 0.85;
+            line-height: 1.7;
+        }
+
+        /* Questionnaire Section */
+        .questionnaire {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--light) 100%);
+        }
+
+        .questionnaire-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .question-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            margin-top: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
+        .form-group:nth-child(5) { animation-delay: 0.5s; }
+        .form-group:nth-child(6) { animation-delay: 0.6s; }
+        .form-group:nth-child(7) { animation-delay: 0.7s; }
+
+        .form-group label {
+            display: block;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 2px;
+            font-family: 'Work Sans', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: var(--light);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--primary);
+            color: var(--light);
+            border: none;
+            border-radius: 2px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            background: #0f0f1e;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(26, 26, 46, 0.3);
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .portfolio-grid {
+            max-width: 1400px;
+            margin: 3rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            aspect-ratio: 16/10;
+            background: linear-gradient(135deg, var(--primary) 0%, #2a2a3e 100%);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: scale(1.02);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(26, 26, 46, 0.9) 0%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-overlay h3 {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-overlay p {
+            color: var(--accent);
+            font-size: 0.95rem;
+        }
+
+        /* Templates Gallery Section */
+        .templates-gallery {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .templates-container {
+            max-width: 1400px;
+            margin: 3rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .template-card {
+            background: var(--light);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #e8e8e8;
+            cursor: pointer;
+        }
+
+        .template-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .template-preview {
+            height: 320px;
+            background: #f5f5f5;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Generic Preview Elements */
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .preview-header.centered { justify-content: center; }
+        .preview-header.minimal { border: none; margin-bottom: 2rem; }
+        .preview-header.dark {
+            background: var(--primary);
+            margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+            padding: 1rem 1.5rem;
+            border: none;
+        }
+
+        .preview-logo {
+            width: 80px;
+            height: 24px;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--primary) 100%);
+            border-radius: 2px;
+        }
+
+        .preview-logo-minimal {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .preview-logo-light {
+            width: 80px;
+            height: 24px;
+            background: white;
+            border-radius: 2px;
+        }
+
+        .preview-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .preview-nav span {
+            width: 40px;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 4px;
+        }
+
+        .preview-search {
+            flex: 1;
+            max-width: 200px;
+            height: 30px;
+            background: white;
+            border-radius: 15px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .preview-cart {
+            width: 30px;
+            height: 30px;
+            background: var(--secondary);
+            border-radius: 50%;
+        }
+
+        /* Business Template */
+        .business-template {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .preview-hero {
+            background: white;
+            padding: 2rem 1.5rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .preview-text-block {
+            width: 70%;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 2px;
+            margin-bottom: 0.8rem;
+        }
+
+        .preview-text-line {
+            width: 90%;
+            height: 8px;
+            background: #d0d0d0;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .preview-button {
+            width: 100px;
+            height: 32px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .preview-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+        }
+
+        .preview-card {
+            background: white;
+            height: 60px;
+            border-radius: 4px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        /* E-Commerce Template */
+        .ecommerce-template {
+            background: #fff;
+        }
+
+        .preview-products {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .product-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            height: 100px;
+            position: relative;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            right: 8px;
+            height: 60px;
+            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+            border-radius: 2px;
+        }
+
+        .product-card::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            right: 8px;
+            height: 6px;
+            background: #d0d0d0;
+            border-radius: 3px;
+        }
+
+        /* Portfolio Template */
+        .portfolio-template {
+            background: #fafafa;
+        }
+
+        .preview-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--primary) 0%, #3a3a4e 100%);
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 50%);
+        }
+
+        /* Landing Page Template */
+        .landing-template {
+            background: linear-gradient(180deg, var(--primary) 0%, var(--primary) 40%, white 40%);
+        }
+
+        .preview-landing {
+            text-align: center;
+        }
+
+        .landing-hero {
+            width: 80%;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 4px;
+            margin: 0 auto 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .landing-cta {
+            width: 120px;
+            height: 40px;
+            background: var(--secondary);
+            border-radius: 20px;
+            margin: 0 auto 2rem;
+        }
+
+        .landing-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .feature-box {
+            background: white;
+            height: 70px;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+        }
+
+        /* Booking Template */
+        .booking-template {
+            background: #f8f9fa;
+        }
+
+        .preview-booking {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .calendar-preview {
+            background: white;
+            border-radius: 4px;
+            padding: 0.8rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .booking-form {
+            background: white;
+            padding: 1rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-line {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 0.8rem;
+        }
+
+        .form-button {
+            height: 32px;
+            background: var(--secondary);
+            border-radius: 2px;
+            margin-top: 1rem;
+        }
+
+        /* Restaurant Template */
+        .restaurant-template {
+            background: #2a2a2a;
+        }
+
+        .preview-restaurant {
+            margin-top: 1rem;
+        }
+
+        .hero-image {
+            height: 100px;
+            background: linear-gradient(135deg, #8b7355 0%, #6b5345 100%);
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 70%);
+        }
+
+        .menu-preview {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem;
+            border-radius: 4px;
+        }
+
+        .menu-item {
+            height: 30px;
+            background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 100%);
+            border-radius: 2px;
+            margin-bottom: 0.5rem;
+            border-left: 3px solid var(--secondary);
+        }
+
+        /* Real Estate Template */
+        .real-estate-template {
+            background: #f5f5f5;
+        }
+
+        .preview-listings {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .listing-card {
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            display: grid;
+            grid-template-columns: 100px 1fr;
+        }
+
+        .listing-image {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+        }
+
+        .listing-details {
+            padding: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .listing-details::before,
+        .listing-details::after {
+            content: '';
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+        }
+
+        .listing-details::before {
+            width: 70%;
+            background: var(--primary);
+        }
+
+        /* Medical Template */
+        .medical-template {
+            background: linear-gradient(180deg, #e3f2fd 0%, white 50%);
+        }
+
+        .preview-medical {
+            margin-top: 1rem;
+        }
+
+        .medical-hero {
+            background: white;
+            height: 80px;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 12px rgba(33, 150, 243, 0.1);
+            border-left: 4px solid #2196f3;
+        }
+
+        .medical-services {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .service-box {
+            background: white;
+            height: 70px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border-top: 3px solid #2196f3;
+        }
+
+        /* Template Info */
+        .template-info {
+            padding: 2rem;
+        }
+
+        .template-info h3 {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .template-info p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .template-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .template-features span {
+            background: var(--accent);
+            color: var(--text);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--light);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(250, 250, 248, 0.8);
+            text-decoration: none;
+            line-height: 2;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            opacity: 0.6;
+        }
+
+        /* Mobile Styles */
         @media (max-width: 768px) {
             .nav-links {
-                display: none;
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: var(--light);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                transition: left 0.3s ease;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             }
 
-            .gallery-grid {
+            .nav-links.active {
+                left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                margin-top: 60px;
+                min-height: auto;
+                padding: 3rem 1.5rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .visual-card {
+                padding: 2rem;
+            }
+
+            .stat-grid {
+                gap: 1rem;
+            }
+
+            .services,
+            .questionnaire,
+            .portfolio,
+            .templates-gallery {
+                padding: 4rem 1.5rem;
+            }
+
+            .services-grid,
+            .portfolio-grid,
+            .templates-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .question-form {
+                padding: 2rem 1.5rem;
+            }
+
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
+        }
 
-            .template-actions {
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 1rem 1.5rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .cta-buttons {
                 flex-direction: column;
             }
 
-            .mockup-content {
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .service-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .portfolio-grid {
                 grid-template-columns: 1fr;
             }
 
-            /* ===============================
-   Questionnaire – Main Site Style
-   =============================== */
+            .templates-container {
+                grid-template-columns: 1fr;
+            }
 
-#questionnaire {
-    padding: 6rem 2rem;
-}
+            .template-preview {
+                height: 280px;
+            }
 
-/* Card container */
-.questionnaire-panel {
-    max-width: 900px;
-    margin: 4rem auto 0;
-    background: var(--light, #ffffff);
-    border-radius: 24px;
-    padding: 3.5rem;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.08);
-}
+            .preview-products {
+                grid-template-columns: 1fr;
+            }
 
-/* Form grid */
-.questionnaire-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2.5rem;
-}
+            .preview-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
 
-/* Full-width rows */
-.questionnaire-form .full {
-    grid-column: 1 / -1;
-}
+            .preview-booking {
+                grid-template-columns: 1fr;
+            }
 
-/* Labels */
-.questionnaire-form label {
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--text-muted, #666);
-    margin-bottom: 0.6rem;
-    display: block;
-}
-
-/* Inputs */
-.questionnaire-form input,
-.questionnaire-form textarea,
-.questionnaire-form select {
-    width: 100%;
-    padding: 1rem 1.2rem;
-    font-family: inherit;
-    font-size: 1rem;
-    border-radius: 14px;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    background: transparent;
-    transition: all 0.25s ease;
-}
-
-/* Focus state */
-.questionnaire-form input:focus,
-.questionnaire-form textarea:focus,
-.questionnaire-form select:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.03);
-}
-
-/* Placeholder styling */
-.questionnaire-form input::placeholder,
-.questionnaire-form textarea::placeholder {
-    color: rgba(0, 0, 0, 0.4);
-}
-
-/* Button alignment */
-.questionnaire-form button {
-    grid-column: 1 / -1;
-    margin-top: 1.5rem;
-    padding: 1.1rem 2.4rem;
-    font-size: 0.95rem;
-    border-radius: 999px;
-}
-
-/* Section heading spacing */
-#questionnaire h2 {
-    font-size: clamp(2rem, 3vw, 2.6rem);
-    margin-bottom: 0.5rem;
-}
-
-#questionnaire p {
-    max-width: 600px;
-    margin: 0 auto;
-    color: var(--text-muted, #666);
-}
-
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-    .questionnaire-panel {
-        padding: 2.5rem 2rem;
-    }
-
-    .questionnaire-form {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-}
-
-
+            .listing-card {
+                grid-template-columns: 80px 1fr;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
     <nav>
-<div class="nav-container">
-<a href="index.html" class="logo">Miko's Web Dev Services</a>
-<ul class="nav-links">
-<li><a href="#questionnaire">Get Started</a></li>
-<li><a href="#contact">Contact</a></li>
-</ul>
-</div>
-</nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Miko's Web Dev</a>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#templates">Templates</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#questionnaire">Get Started</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Professional Website Templates</h1>
-            <p>Browse our collection of stunning, ready-to-customize templates. Each one is designed with your industry in mind and can be tailored to match your brand perfectly.</p>
+            <h1>Websites That Convert Visitors Into Customers</h1>
+            <p>We craft bespoke digital experiences that elevate your brand and drive measurable results. From concept to launch, we're with you every step.</p>
+            <div class="cta-buttons">
+                <a href="#questionnaire" class="btn btn-primary">Start Your Project</a>
+                <a href="#templates" class="btn btn-secondary">Browse Templates</a>
+            </div>
         </div>
-    </section>
-
-    <section class="filter-section">
-        <div class="filter-container">
-            <button class="filter-btn active" data-filter="all">All Templates</button>
-            <button class="filter-btn" data-filter="business">Business</button>
-            <button class="filter-btn" data-filter="ecommerce">E-Commerce</button>
-            <button class="filter-btn" data-filter="creative">Creative</button>
-            <button class="filter-btn" data-filter="service">Services</button>
-        </div>
-    </section>
-
-    <section class="gallery">
-        <div class="gallery-grid" id="galleryGrid">
-            <!-- Business Template -->
-            <div class="template-card" data-category="business">
-                <div class="template-preview business-preview">
-                    <div class="mockup-header"></div>
-                    <div class="mockup-hero"></div>
-                    <div class="mockup-content">
-                        <div class="mockup-card"></div>
-                        <div class="mockup-card"></div>
-                        <div class="mockup-card"></div>
+        <div class="hero-visual">
+            <div class="visual-card">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--primary);">Your Success, Measured</h3>
+                <div class="stat-grid">
+                    <div class="stat">
+                        <div class="stat-number">150+</div>
+                        <div class="stat-label">Projects</div>
                     </div>
-                    <div class="preview-overlay">
-                        <a href="business-template.html" target="_blank" class="preview-btn">View Live Demo</a>
+                    <div class="stat">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Satisfaction</div>
                     </div>
-                </div>
-                <div class="template-info">
-                    <div class="template-header">
-                        <h3>Professional Business</h3>
-                        <span class="template-category">Business</span>
+                    <div class="stat">
+                        <div class="stat-number">3x</div>
+                        <div class="stat-label">Avg ROI</div>
                     </div>
-                    <p>Perfect for service-based businesses, consultancies, and corporate websites. Features a clean, professional layout with service showcases and client testimonials.</p>
-                    <div class="template-features">
-                        <span class="feature-tag">Contact Forms</span>
-                        <span class="feature-tag">Service Pages</span>
-                        <span class="feature-tag">About Section</span>
-                        <span class="feature-tag">Statistics</span>
-                    </div>
-                    <div class="template-actions">
-                        <a href="business-template.html" target="_blank" class="btn btn-primary">View Demo</a>
-                        <a href="index.html#questionnaire" class="btn btn-secondary">Customize</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- E-Commerce Template -->
-            <div class="template-card" data-category="ecommerce">
-                <div class="template-preview ecommerce-preview">
-                    <div class="mockup-header"></div>
-                    <div class="mockup-content">
-                        <div class="mockup-card"></div>
-                        <div class="mockup-card"></div>
-                        <div class="mockup-card"></div>
-                    </div>
-                    <div class="preview-overlay">
-                        <a href="ecommerce-template.html" target="_blank" class="preview-btn">View Live Demo</a>
-                    </div>
-                </div>
-                <div class="template-info">
-                    <div class="template-header">
-                        <h3>E-Commerce Store</h3>
-                        <span class="template-category">E-Commerce</span>
-                    </div>
-                    <p>Full-featured online store with product catalogs, shopping cart, and checkout. Integrated with trusted payment processors for seamless transactions.</p>
-                    <div class="template-features">
-                        <span class="feature-tag">Product Gallery</span>
-                        <span class="feature-tag">Shopping Cart</span>
-                        <span class="feature-tag">Checkout</span>
-                        <span class="feature-tag">Newsletter</span>
-                    </div>
-                    <div class="template-actions">
-                        <a href="ecommerce-template.html" target="_blank" class="btn btn-primary">View Demo</a>
-                        <a href="index.html#questionnaire" class="btn btn-secondary">Customize</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Portfolio Template -->
-            <div class="template-card" data-category="creative">
-                <div class="template-preview portfolio-preview">
-                    <div class="mockup-header"></div>
-                    <div class="mockup-content">
-                        <div class="mockup-card"></div>
-                        <div class="mockup-card"></div>
-                        <div class="mockup-card"></div>
-                    </div>
-                    <div class="preview-overlay">
-                        <a href="portfolio-template.html" target="_blank" class="preview-btn">View Live Demo</a>
-                    </div>
-                </div>
-                <div class="template-info">
-                    <div class="template-header">
-                        <h3>Creative Portfolio</h3>
-                        <span class="template-category">Creative</span>
-                    </div>
-                    <p>Showcase your work beautifully with this bold, artistic design. Perfect for photographers, designers, artists, and creative professionals.</p>
-                    <div class="template-features">
-                        <span class="feature-tag">Photo Gallery</span>
-                        <span class="feature-tag">Project Pages</span>
-                        <span class="feature-tag">Contact Form</span>
-                        <span class="feature-tag">Skills Display</span>
-                    </div>
-                    <div class="template-actions">
-                        <a href="portfolio-template.html" target="_blank" class="btn btn-primary">View Demo</a>
-                        <a href="index.html#questionnaire" class="btn btn-secondary">Customize</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Landing Page Template -->
-            <div class="template-card" data-category="business">
-                <div class="template-preview landing-preview">
-                    <div class="mockup-hero"></div>
-                    <div class="mockup-content">
-                        <div class="mockup-card"></div>
-                        <div class="mockup-card"></div>
-                        <div class="mockup-card"></div>
-                    </div>
-                    <div class="preview-overlay">
-                        <a href="landing-template.html" target="_blank" class="preview-btn">View Live Demo</a>
-                    </div>
-                </div>
-                <div class="template-info">
-                    <div class="template-header">
-                        <h3>Landing Page</h3>
-                        <span class="template-category">Marketing</span>
-                    </div>
-                    <p>High-converting single-page design focused on one clear goal. Great for product launches, campaigns, and lead generation initiatives.</p>
-                    <div class="template-features">
-                        <span class="feature-tag">Lead Capture</span>
-                        <span class="feature-tag">Call-to-Action</span>
-                        <span class="feature-tag">Analytics Ready</span>
-                        <span class="feature-tag">Social Proof</span>
-                    </div>
-                    <div class="template-actions">
-                        <a href="landing-template.html" target="_blank" class="btn btn-primary">View Demo</a>
-                        <a href="index.html#questionnaire" class="btn btn-secondary">Customize</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Booking Template -->
-            <div class="template-card" data-category="service">
-                <div class="template-preview booking-preview">
-                    <div class="mockup-header"></div>
-                    <div class="mockup-hero"></div>
-                    <div class="mockup-content">
-                        <div class="mockup-card"></div>
-                        <div class="mockup-card"></div>
-                        <div class="mockup-card"></div>
-                    </div>
-                    <div class="preview-overlay">
-                        <a href="booking-template.html" target="_blank" class="preview-btn">View Live Demo</a>
-                    </div>
-                </div>
-                <div class="template-info">
-                    <div class="template-header">
-                        <h3>Booking System</h3>
-                        <span class="template-category">Services</span>
-                    </div>
-                    <p>Professional appointment scheduling for salons, spas, consultants, and service providers. Includes calendar integration and automated reminders.</p>
-                    <div class="template-features">
-                        <span class="feature-tag">Calendar</span>
-                        <span class="feature-tag">Appointments</span>
-                        <span class="feature-tag">Reminders</span>
-                        <span class="feature-tag">Time Slots</span>
-                    </div>
-                    <div class="template-actions">
-                        <a href="booking-template.html" target="_blank" class="btn btn-primary">View Demo</a>
-                        <a href="index.html#questionnaire" class="btn btn-secondary">Customize</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Restaurant Template -->
-            <div class="template-card" data-category="service">
-                <div class="template-preview restaurant-preview">
-                    <div class="mockup-header"></div>
-                    <div class="mockup-hero"></div>
-                    <div class="mockup-content">
-                        <div class="mockup-card"></div>
-                        <div class="mockup-card"></div>
-                        <div class="mockup-card"></div>
-                    </div>
-                    <div class="preview-overlay">
-                        <a href="restaurant-template.html" target="_blank" class="preview-btn">View Live Demo</a>
-                    </div>
-                </div>
-                <div class="template-info">
-                    <div class="template-header">
-                        <h3>Restaurant & Cafe</h3>
-                        <span class="template-category">Food & Drink</span>
-                    </div>
-                    <p>Beautiful menu displays, online ordering, and reservation system. Perfect for restaurants, cafes, bars, and food service businesses.</p>
-                    <div class="template-features">
-                        <span class="feature-tag">Menu Display</span>
-                        <span class="feature-tag">Online Booking</span>
-                        <span class="feature-tag">Gallery</span>
-                        <span class="feature-tag">Story Section</span>
-                    </div>
-                    <div class="template-actions">
-                        <a href="restaurant-template.html" target="_blank" class="btn btn-primary">View Demo</a>
-                        <a href="index.html#questionnaire" class="btn btn-secondary">Customize</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Real Estate Template -->
-            <div class="template-card" data-category="business">
-                <div class="template-preview realestate-preview">
-                    <div class="mockup-header"></div>
-                    <div class="mockup-content">
-                        <div class="mockup-card"></div>
-                        <div class="mockup-card"></div>
-                        <div class="mockup-card"></div>
-                    </div>
-                    <div class="preview-overlay">
-                        <a href="real-estate-template.html" target="_blank" class="preview-btn">View Live Demo</a>
-                    </div>
-                </div>
-                <div class="template-info">
-                    <div class="template-header">
-                        <h3>Real Estate</h3>
-                        <span class="template-category">Real Estate</span>
-                    </div>
-                    <p>Property listings with advanced search filters, virtual tours, and contact forms. Ideal for realtors, brokers, and property managers.</p>
-                    <div class="template-features">
-                        <span class="feature-tag">Property Listings</span>
-                        <span class="feature-tag">Search Filters</span>
-                        <span class="feature-tag">Contact Forms</span>
-                        <span class="feature-tag">Featured Properties</span>
-                    </div>
-                    <div class="template-actions">
-                        <a href="real-estate-template.html" target="_blank" class="btn btn-primary">View Demo</a>
-                        <a href="index.html#questionnaire" class="btn btn-secondary">Customize</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Medical Template -->
-            <div class="template-card" data-category="service">
-                <div class="template-preview medical-preview">
-                    <div class="mockup-header"></div>
-                    <div class="mockup-hero"></div>
-                    <div class="mockup-content">
-                        <div class="mockup-card"></div>
-                        <div class="mockup-card"></div>
-                        <div class="mockup-card"></div>
-                    </div>
-                    <div class="preview-overlay">
-                        <a href="medical-template.html" target="_blank" class="preview-btn">View Live Demo</a>
-                    </div>
-                </div>
-                <div class="template-info">
-                    <div class="template-header">
-                        <h3>Medical & Healthcare</h3>
-                        <span class="template-category">Healthcare</span>
-                    </div>
-                    <p>Professional healthcare websites with appointment booking, service information, and patient resources. HIPAA-compliant design considerations.</p>
-                    <div class="template-features">
-                        <span class="feature-tag">Appointments</span>
-                        <span class="feature-tag">Services Info</span>
-                        <span class="feature-tag">HIPAA Aware</span>
-                        <span class="feature-tag">Testimonials</span>
-                    </div>
-                    <div class="template-actions">
-                        <a href="medical-template.html" target="_blank" class="btn btn-primary">View Demo</a>
-                        <a href="index.html#questionnaire" class="btn btn-secondary">Customize</a>
+                    <div class="stat">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Support</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
-    <section>
-        <div class="preview-overlay">
-    <a href="medical-template.html" target="_blank" class="preview-btn">
-        
-    </a>
-</div>
-    <a href="real-estate-template.html" target="_blank" class="preview-btn">
-       
-    </a>
-</div>
-</div>
-    <a href="restaurant-template.html" target="_blank" class="preview-btn">
-        
-    </a>
-</div>
-</div>
-    <a href="booking-template.html" target="_blank" class="preview-btn">
-        
-</div>
-</div>
-    <a href="landing-template.html" target="_blank" class="preview-btn">
-       
-    </a>
-</div>
-</div>
-    <a href="portfolio-template.html" target="_blank" class="preview-btn">
-    </a>
-</div>
-</div>
-    <a href="ecommerce-template.html" target="_blank" class="preview-btn">
-        
-    </a>
-</div>
-</div>
-    <a href="business-template.html" target="_blank" class="preview-btn">
-        
-    </a>
-</div>
 
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-header">
+            <h2 class="section-title">What I Create for You</h2>
+            <p class="section-subtitle">Personalized web solutions designed around your business goals</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <span class="service-icon">🎨</span>
+                <h3>Custom Web Design</h3>
+                <p>Beautiful, responsive websites designed specifically for your brand. No templates, no compromises—just unique digital experiences that captivate your audience.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">🛒</span>
+                <h3>E-Commerce Solutions</h3>
+                <p>Full-featured online stores that convert browsers into buyers. Secure payment integration, inventory management, and seamless checkout experiences.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">📱</span>
+                <h3>Mobile-First Development</h3>
+                <p>Websites optimized for every device. Your customers browse on mobile—your site should look stunning and perform flawlessly on any screen size.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">🚀</span>
+                <h3>Performance Optimization</h3>
+                <p>Lightning-fast load times and smooth interactions. We build websites that rank higher in search results and keep visitors engaged.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">🔧</span>
+                <h3>Ongoing Maintenance</h3>
+                <p>Keep your site secure, updated, and running smoothly. From content updates to security patches, we've got you covered.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">📈</span>
+                <h3>SEO & Analytics</h3>
+                <p>Get found by the right customers. We optimize your site for search engines and provide insights into your traffic and conversions.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">✨</span>
+                <h3>Design & Branding</h3>
+                <p>Create a cohesive brand identity that stands out. From logos to color schemes, we craft visual elements that tell your unique story.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">☁️</span>
+                <h3>Hosting & Maintenance</h3>
+                <p>Reliable hosting with 99.9% uptime and continuous support. We handle backups, security, and technical updates so you can focus on your business.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">📸</span>
+                <h3>Photography Business Sites</h3>
+                <p>Stunning portfolio websites designed specifically for photographers. Showcase your work with beautiful galleries, client proofing, and booking systems.</p>
+            </div>
+        </div>
     </section>
 
-    <section id="questionnaire" class="gallery">
-    <div class="cta-content">
-        <h2>Project Questionnaire</h2>
-        <p>Answer a few quick questions so we can understand your vision.</p>
 
-        <div class="questionnaire-panel">
-            <form class="questionnaire-form">
+    <!-- Templates Gallery Section -->
+    <section class="templates-gallery" id="templates">
+        <div class="section-header">
+            <h2 class="section-title">Premade Website Templates</h2>
+            <p class="section-subtitle">Choose a starting point and I'll customize it to match your brand perfectly</p>
+        </div>
+        <div class="templates-container">
+            <a href="business-template.html" target="_blank" class="template-link" style="text-decoration: none; color: inherit;">
+            <div class="template-card">
+                <div class="template-preview business-template">
+                    <div class="preview-header">
+                        <div class="preview-logo"></div>
+                        <div class="preview-nav">
+                            <span></span><span></span><span></span>
+                        </div>
+                    </div>
+                    <div class="preview-hero">
+                        <div class="preview-text-block"></div>
+                        <div class="preview-text-line"></div>
+                        <div class="preview-button"></div>
+                    </div>
+                    <div class="preview-content">
+                        <div class="preview-card"></div>
+                        <div class="preview-card"></div>
+                        <div class="preview-card"></div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Professional Business</h3>
+                    <p>Perfect for service-based businesses, consultancies, and corporate websites. Clean, professional layout with service showcases.</p>
+                    <div class="template-features">
+                        <span>✓ Contact Forms</span>
+                        <span>✓ Service Pages</span>
+                        <span>✓ About Section</span>
+                    </div>
+                </div>
+            </div>
+            </a>
 
-                <div>
-                    <label>1. What type of website do you need?</label>
-                    <input type="text" placeholder="Business, Portfolio, E-commerce…" required>
+            <a href="ecommerce-template.html" target="_blank" class="template-link" style="text-decoration: none; color: inherit;">
+            <div class="template-card">
+                <div class="template-preview ecommerce-template">
+                    <div class="preview-header">
+                        <div class="preview-logo"></div>
+                        <div class="preview-search"></div>
+                        <div class="preview-cart"></div>
+                    </div>
+                    <div class="preview-products">
+                        <div class="product-card"></div>
+                        <div class="product-card"></div>
+                        <div class="product-card"></div>
+                        <div class="product-card"></div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>E-Commerce Store</h3>
+                    <p>Full online store with product catalogs, shopping cart, and checkout. Integrated with trusted payment processors.</p>
+                    <div class="template-features">
+                        <span>✓ Product Gallery</span>
+                        <span>✓ Shopping Cart</span>
+                        <span>✓ Checkout</span>
+                    </div>
+                </div>
+            </div>
+            </a>
+
+            <a href="portfolio-template.html" target="_blank" class="template-link" style="text-decoration: none; color: inherit;">
+            <div class="template-card">
+                <div class="template-preview portfolio-template">
+                    <div class="preview-header minimal">
+                        <div class="preview-logo-minimal"></div>
+                    </div>
+                    <div class="preview-gallery">
+                        <div class="gallery-item"></div>
+                        <div class="gallery-item"></div>
+                        <div class="gallery-item"></div>
+                        <div class="gallery-item"></div>
+                        <div class="gallery-item"></div>
+                        <div class="gallery-item"></div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Creative Portfolio</h3>
+                    <p>Showcase your work beautifully. Perfect for photographers, designers, artists, and creative professionals.</p>
+                    <div class="template-features">
+                        <span>✓ Photo Gallery</span>
+                        <span>✓ Project Pages</span>
+                        <span>✓ Contact Form</span>
+                    </div>
+                </div>
+            </div>
+            </a>
+
+            <a href="landing-template.html" target="_blank" class="template-link" style="text-decoration: none; color: inherit;">
+            <div class="template-card">
+                <div class="template-preview landing-template">
+                    <div class="preview-header centered">
+                        <div class="preview-logo"></div>
+                    </div>
+                    <div class="preview-landing">
+                        <div class="landing-hero"></div>
+                        <div class="landing-cta"></div>
+                        <div class="landing-features">
+                            <div class="feature-box"></div>
+                            <div class="feature-box"></div>
+                            <div class="feature-box"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Landing Page</h3>
+                    <p>High-converting single-page design focused on one goal. Great for product launches, campaigns, and lead generation.</p>
+                    <div class="template-features">
+                        <span>✓ Lead Capture</span>
+                        <span>✓ Call-to-Action</span>
+                        <span>✓ Analytics Ready</span>
+                    </div>
+                </div>
+            </div>
+            </a>
+
+            <a href="booking-template.html" target="_blank" class="template-link" style="text-decoration: none; color: inherit;">
+            <div class="template-card">
+                <div class="template-preview booking-template">
+                    <div class="preview-header">
+                        <div class="preview-logo"></div>
+                        <div class="preview-nav">
+                            <span></span><span></span>
+                        </div>
+                    </div>
+                    <div class="preview-booking">
+                        <div class="calendar-preview"></div>
+                        <div class="booking-form">
+                            <div class="form-line"></div>
+                            <div class="form-line"></div>
+                            <div class="form-button"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Booking System</h3>
+                    <p>Appointment scheduling for salons, spas, consultants, and service providers. Calendar integration and reminders.</p>
+                    <div class="template-features">
+                        <span>✓ Calendar</span>
+                        <span>✓ Appointments</span>
+                        <span>✓ Reminders</span>
+                    </div>
+                </div>
+            </div>
+            </a>
+
+            <a href="restaurant-template.html" target="_blank" class="template-link" style="text-decoration: none; color: inherit;">
+            <div class="template-card">
+                <div class="template-preview restaurant-template">
+                    <div class="preview-header dark">
+                        <div class="preview-logo-light"></div>
+                    </div>
+                    <div class="preview-restaurant">
+                        <div class="hero-image"></div>
+                        <div class="menu-preview">
+                            <div class="menu-item"></div>
+                            <div class="menu-item"></div>
+                            <div class="menu-item"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Restaurant & Cafe</h3>
+                    <p>Beautiful menu displays, online ordering, and reservation system. Perfect for restaurants, cafes, and food businesses.</p>
+                    <div class="template-features">
+                        <span>✓ Menu Display</span>
+                        <span>✓ Online Booking</span>
+                        <span>✓ Gallery</span>
+                    </div>
+                </div>
+            </div>
+            </a>
+
+            <a href="real-estate-template.html" target="_blank" class="template-link" style="text-decoration: none; color: inherit;">
+            <div class="template-card">
+                <div class="template-preview real-estate-template">
+                    <div class="preview-header">
+                        <div class="preview-logo"></div>
+                        <div class="preview-search"></div>
+                    </div>
+                    <div class="preview-listings">
+                        <div class="listing-card">
+                            <div class="listing-image"></div>
+                            <div class="listing-details"></div>
+                        </div>
+                        <div class="listing-card">
+                            <div class="listing-image"></div>
+                            <div class="listing-details"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Real Estate</h3>
+                    <p>Property listings with search filters, virtual tours, and contact forms. Ideal for realtors and property managers.</p>
+                    <div class="template-features">
+                        <span>✓ Property Listings</span>
+                        <span>✓ Search Filters</span>
+                        <span>✓ Contact Forms</span>
+                    </div>
+                </div>
+            </div>
+            </a>
+
+            <a href="medical-template.html" target="_blank" class="template-link" style="text-decoration: none; color: inherit;">
+            <div class="template-card">
+                <div class="template-preview medical-template">
+                    <div class="preview-header">
+                        <div class="preview-logo"></div>
+                        <div class="preview-nav">
+                            <span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
+                    <div class="preview-medical">
+                        <div class="medical-hero"></div>
+                        <div class="medical-services">
+                            <div class="service-box"></div>
+                            <div class="service-box"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Medical & Healthcare</h3>
+                    <p>Professional healthcare websites with appointment booking, service information, and patient resources.</p>
+                    <div class="template-features">
+                        <span>✓ Appointments</span>
+                        <span>✓ Services Info</span>
+                        <span>✓ HIPAA Aware</span>
+                    </div>
+                </div>
+            </div>
+            </a>
+        </div>
+    </section>
+
+
+    <!-- Questionnaire Section -->
+    <section class="questionnaire" id="questionnaire">
+        <div class="questionnaire-container">
+            <div class="section-header">
+                <h2 class="section-title">Let's Build Something Amazing</h2>
+                <p class="section-subtitle">Tell us about your project and we'll create a custom proposal tailored to your needs</p>
+            </div>
+            <form class="question-form" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="businessName">1. What's your business name?</label>
+                    <input type="text" id="businessName" name="businessName" required placeholder="e.g., Acme Corporation">
                 </div>
 
-                <div>
-                    <label>2. What is the main goal of your website?</label>
-                    <input type="text" placeholder="Leads, sales, bookings…" required>
+                <div class="form-group">
+                    <label for="projectType">2. What type of website are you building?</label>
+                    <select id="projectType" name="projectType" required>
+                        <option value="">Select an option...</option>
+                        <option value="business">Business/Corporate Website</option>
+                        <option value="ecommerce">E-Commerce Store</option>
+                        <option value="portfolio">Portfolio/Creative Showcase</option>
+                        <option value="blog">Blog/Content Platform</option>
+                        <option value="landing">Landing Page/Marketing Site</option>
+                        <option value="booking">Booking/Reservation System</option>
+                        <option value="directory">Directory/Listing Site</option>
+                        <option value="other">Other (please specify in goals)</option>
+                    </select>
                 </div>
 
-                <div>
-                    <label>3. Do you already have branding?</label>
-                    <input type="text" placeholder="Yes / No / Partially">
+                <div class="form-group">
+                    <label for="primaryGoal">3. What's your primary goal for this website?</label>
+                    <textarea id="primaryGoal" name="primaryGoal" required placeholder="e.g., Generate more leads, sell products online, showcase our work, build brand awareness..."></textarea>
                 </div>
 
-                <div>
-                    <label>4. Who is your target audience?</label>
-                    <input type="text" placeholder="Describe your ideal customer">
+                <div class="form-group">
+                    <label for="targetAudience">4. Who is your target audience?</label>
+                    <textarea id="targetAudience" name="targetAudience" required placeholder="e.g., Small business owners aged 30-50, tech-savvy millennials, luxury consumers..."></textarea>
                 </div>
 
-                <div class="full">
-                    <label>5. Any specific features you want?</label>
-                    <input type="text" placeholder="Payments, booking system, forms, gallery…">
+                <div class="form-group">
+                    <label for="features">5. What features and functionality do you need?</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="contact" name="features" value="contact">
+                            <label for="contact" style="font-size: 1rem; margin: 0;">Contact Form</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="booking" name="features" value="booking">
+                            <label for="booking" style="font-size: 1rem; margin: 0;">Online Booking</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="shop" name="features" value="shop">
+                            <label for="shop" style="font-size: 1rem; margin: 0;">Online Store</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="blog" name="features" value="blog">
+                            <label for="blog" style="font-size: 1rem; margin: 0;">Blog/News</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="gallery" name="features" value="gallery">
+                            <label for="gallery" style="font-size: 1rem; margin: 0;">Photo Gallery</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="payment" name="features" value="payment">
+                            <label for="payment" style="font-size: 1rem; margin: 0;">Payment Processing</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="membership" name="features" value="membership">
+                            <label for="membership" style="font-size: 1rem; margin: 0;">User Accounts</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="social" name="features" value="social">
+                            <label for="social" style="font-size: 1rem; margin: 0;">Social Media Integration</label>
+                        </div>
+                    </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">
-                    Submit Questionnaire
-                </button>
+                <div class="form-group">
+                    <label for="budget">6. What's your budget range for this project?</label>
+                    <select id="budget" name="budget" required>
+                        <option value="">Select a range...</option>
+                        <option value="small">$2,000 - $5,000</option>
+                        <option value="medium">$5,000 - $10,000</option>
+                        <option value="large">$10,000 - $25,000</option>
+                        <option value="enterprise">$25,000+</option>
+                        <option value="flexible">Flexible/Not Sure</option>
+                    </select>
+                </div>
 
+                <div class="form-group">
+                    <label for="timeline">7. When do you need this completed?</label>
+                    <select id="timeline" name="timeline" required>
+                        <option value="">Select a timeframe...</option>
+                        <option value="urgent">ASAP (1-2 weeks)</option>
+                        <option value="fast">1 month</option>
+                        <option value="normal">2-3 months</option>
+                        <option value="flexible">Flexible timeline</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Your Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="your@email.com">
+                </div>
+
+                <button type="submit" class="submit-btn">Get Your Free Consultation</button>
             </form>
         </div>
-    </div>
-</section>
+    </section>
 
-
-
-    <section class="cta-section">
-        <div class="cta-content">
-            <h2>Ready to Get Started?</h2>
-            <p>Choose a template and let us customize it to perfectly match your brand, or start from scratch with a completely custom design.</p>
-            <a href="index.html#questionnaire" class="cta-btn">Start Your Project</a>
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <div class="section-header">
+            <h2 class="section-title">Recent Work</h2>
+            <p class="section-subtitle">Projects we're proud to showcase</p>
+        </div>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>Luxury Real Estate</h3>
+                    <p>Premium property showcase with virtual tours</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>Artisan Coffee Shop</h3>
+                    <p>E-commerce platform with subscription service</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>Tech Startup</h3>
+                    <p>SaaS landing page with conversion optimization</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>Boutique Hotel</h3>
+                    <p>Booking system with multilingual support</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>Creative Agency</h3>
+                    <p>Interactive portfolio with custom animations</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>Wellness Center</h3>
+                    <p>Appointment booking with member portal</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="contact" class="cta-section">
-<div class="cta-content">
-<h2>Contact</h2>
-<p>
-📧 <a href="mailto:tempestmiko@gmail.com" style="color:#d4af37;">tempestmiko@gmail.com</a><br>
-📞 <a href="tel:+639951877158" style="color:#d4af37;">+63 9951877158</a><br>
-📸 <a href="https://instagram.com/wydmiko" target="_blank" style="color:#d4af37;">@wydmiko</a>
-</p>
-</div>
-</section>
-
-    <footer>
-        <p>&copy; 2026 Bespoke Web Studio. All rights reserved.</p>
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Miko's Web Dev</h4>
+                <p>Quality web development services tailored to your business needs. Flexible scheduling, personalized attention, real results.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <p><a href="#services">Web Design</a></p>
+                <p><a href="#services">E-Commerce</a></p>
+                <p><a href="#services">Design & Branding</a></p>
+                <p><a href="#services">Hosting & Maintenance</a></p>
+                <p><a href="#services">Photography Sites</a></p>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Email: yumicodes.enterprice@gmail.com</p>
+                <p>Available for consultation</p>
+                <p>Flexible scheduling available</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <p><a href="#templates">Templates</a></p>
+                <p><a href="#portfolio">Portfolio</a></p>
+                <p><a href="#questionnaire">Start a Project</a></p>
+                <p><a href="#services">Services</a></p>
+                <p><a href="#contact">Contact</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Miko's Web Dev. All rights reserved.</p>
+        </div>
     </footer>
 
-    <script>
-        // Filter functionality
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const templateCards = document.querySelectorAll('.template-card');
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Update active button
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                const filter = btn.getAttribute('data-filter');
-
-                // Filter cards
-                templateCards.forEach(card => {
-                    const category = card.getAttribute('data-category');
-                    
-                    if (filter === 'all' || category === filter) {
-                        card.style.display = 'block';
-                        // Re-trigger animation
-                        card.style.animation = 'none';
-                        setTimeout(() => {
-                            card.style.animation = '';
-                        }, 10);
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
             });
         });
 
-        // Smooth scrolling
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            // Collect form data
+            const formData = new FormData(event.target);
+            const data = {};
+            
+            // Get all form fields
+            for (let [key, value] of formData.entries()) {
+                if (key === 'features') {
+                    if (!data.features) data.features = [];
+                    data.features.push(value);
+                } else {
+                    data[key] = value;
+                }
+            }
+            
+            // In a real application, you would send this to your server
+            console.log('Form submitted:', data);
+            
+            // Show success message
+            alert('Thank you for your submission! We\'ll be in touch within 24 hours to discuss your project.');
+            
+            // Reset form
+            event.target.reset();
+        }
+
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1064,6 +1722,11 @@
                 }
             });
         });
-    </script>
-</body>
-</html>
+
+        // Add scroll effect to navigation
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
