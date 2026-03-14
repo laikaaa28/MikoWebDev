@@ -3,403 +3,597 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Template Gallery - Miko's Web Dev</title>
+    <title>Template Gallery — Go Digitals</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --primary: #1a1a2e;
-            --secondary: #d4af37;
-            --accent: #f0e6d2;
-            --text: #2d2d2d;
-            --light: #fafaf8;
-            --shadow: rgba(0, 0, 0, 0.1);
+            --black: #06060f;
+            --off-black: #0b0b1c;
+            --card: #0f0f24;
+            --gold: #f5c400;
+            --gold-dim: rgba(245,196,0,0.12);
+            --blue: #3b6aff;
+            --blue-dim: rgba(59,106,255,0.12);
+            --white: #eeeeff;
+            --muted: #5a5a8a;
+            --border: rgba(100,100,255,0.12);
         }
-        body { font-family: 'Work Sans', sans-serif; color: var(--text); line-height: 1.6; background: var(--light); }
-        h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; font-weight: 600; line-height: 1.2; }
-        nav { position: fixed; top: 0; width: 100%; background: rgba(250, 250, 248, 0.95); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
-        .nav-container { max-width: 1400px; margin: 0 auto; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; color: var(--primary); text-decoration: none; letter-spacing: -0.5px; }
-        .nav-links { display: flex; gap: 3rem; list-style: none; }
-        .nav-links a { color: var(--text); text-decoration: none; font-weight: 400; font-size: 0.95rem; transition: color 0.3s ease; position: relative; }
-        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--secondary); transition: width 0.3s ease; }
-        .nav-links a:hover::after { width: 100%; }
-        .hero { margin-top: 80px; padding: 6rem 2rem 4rem; background: linear-gradient(135deg, var(--primary) 0%, #2a2a3e 100%); color: white; text-align: center; position: relative; overflow: hidden; }
-        .hero::before { content: ''; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%); border-radius: 50%; animation: float 8s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-30px); } }
-        .hero-content { max-width: 900px; margin: 0 auto; position: relative; z-index: 10; }
-        .hero h1 { font-size: clamp(3rem, 8vw, 5rem); margin-bottom: 1.5rem; color: white; }
-        .hero p { font-size: 1.3rem; margin-bottom: 2.5rem; opacity: 0.95; }
-        .filter-section { background: white; padding: 2rem 2rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.08); position: sticky; top: 80px; z-index: 100; }
-        .filter-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-        .filter-btn { padding: 0.8rem 2rem; background: transparent; border: 2px solid var(--primary); color: var(--primary); border-radius: 50px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: 'Work Sans', sans-serif; }
-        .filter-btn:hover, .filter-btn.active { background: var(--primary); color: white; }
-        .gallery { padding: 5rem 2rem; background: var(--light); }
-        .gallery-grid { max-width: 1600px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(450px, 1fr)); gap: 3rem; }
-        .template-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; animation: fadeInUp 0.6s ease-out backwards; }
-        .template-card:nth-child(1){animation-delay:0.1s} .template-card:nth-child(2){animation-delay:0.2s} .template-card:nth-child(3){animation-delay:0.3s} .template-card:nth-child(4){animation-delay:0.4s} .template-card:nth-child(5){animation-delay:0.5s} .template-card:nth-child(6){animation-delay:0.6s} .template-card:nth-child(7){animation-delay:0.7s} .template-card:nth-child(8){animation-delay:0.8s}
-        .template-card:hover { transform: translateY(-12px); box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
-        .template-preview { height: 350px; position: relative; overflow: hidden; background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%); }
-        .preview-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26, 26, 46, 0.95) 0%, transparent 50%); display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; opacity: 0; transition: opacity 0.4s; }
-        .template-card:hover .preview-overlay { opacity: 1; }
-        .preview-overlay .preview-btn { display: inline-block; padding: 0.9rem 2rem; background: var(--secondary); color: var(--primary); text-decoration: none; font-weight: 600; border-radius: 8px; text-align: center; transition: all 0.3s; margin-top: 1rem; }
-        .preview-overlay .preview-btn:hover { background: #e6c04e; transform: translateY(-2px); }
-        .business-preview { background: linear-gradient(135deg, #0a2540 0%, #425466 100%); padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
-        .ecommerce-preview { background: linear-gradient(135deg, #e8e4dc 0%, #a8b5a0 100%); padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
-        .portfolio-preview { background: linear-gradient(135deg, #1a1a1a 0%, #dc143c 100%); padding: 2rem; position: relative; }
-        .landing-preview { background: linear-gradient(135deg, #1e1b4b 0%, #6366f1 100%); padding: 2rem; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .booking-preview { background: linear-gradient(135deg, #14b8a6 0%, #0f766e 100%); padding: 2rem; }
-        .restaurant-preview { background: linear-gradient(135deg, #7c2d12 0%, #292524 100%); padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
-        .realestate-preview { background: linear-gradient(135deg, #1e3a2f 0%, #8ba888 100%); padding: 2rem; }
-        .medical-preview { background: linear-gradient(135deg, #0891b2 0%, #e0f2fe 100%); padding: 2rem; }
-        .mockup-header { background: rgba(255, 255, 255, 0.15); height: 40px; border-radius: 8px; backdrop-filter: blur(10px); }
-        .mockup-hero { background: rgba(255, 255, 255, 0.2); height: 120px; border-radius: 8px; backdrop-filter: blur(10px); }
-        .mockup-content { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-        .mockup-card { background: rgba(255, 255, 255, 0.15); height: 80px; border-radius: 8px; backdrop-filter: blur(10px); }
-        .template-info { padding: 2rem; }
-        .template-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
-        .template-info h3 { font-size: 1.8rem; color: var(--primary); margin-bottom: 0.5rem; }
-        .template-category { display: inline-block; padding: 0.4rem 1rem; background: var(--accent); color: var(--primary); border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-        .template-info p { color: #666; line-height: 1.7; margin-bottom: 1.5rem; }
-        .template-features { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.5rem; }
-        .feature-tag { background: var(--light); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; color: var(--text); border: 1px solid rgba(0,0,0,0.08); }
-        .template-actions { display: flex; gap: 1rem; }
-        .btn { flex: 1; padding: 0.9rem 1.5rem; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; text-align: center; font-family: 'Work Sans', sans-serif; }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: #2a2a3e; transform: translateY(-2px); }
-        .btn-secondary { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
-        .btn-secondary:hover { background: var(--primary); color: white; }
-        .cta-section { padding: 6rem 2rem; background: var(--primary); color: white; text-align: center; }
-        .cta-content { max-width: 800px; margin: 0 auto; }
-        .cta-section h2 { font-size: clamp(2.5rem, 5vw, 4rem); color: white; margin-bottom: 1.5rem; }
-        .cta-section p { font-size: 1.2rem; margin-bottom: 2.5rem; opacity: 0.95; }
-        .cta-btn { display: inline-block; padding: 1.2rem 3rem; background: var(--secondary); color: var(--primary); text-decoration: none; font-weight: 600; border-radius: 8px; transition: all 0.3s; }
-        .cta-btn:hover { background: #e6c04e; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4); }
-        #questionnaire { padding: 6rem 2rem; }
-        .questionnaire-panel { max-width: 900px; margin: 4rem auto 0; background: white; border-radius: 24px; padding: 3.5rem; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.08); }
-        .questionnaire-form { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
-        .questionnaire-form .full { grid-column: 1 / -1; }
-        .questionnaire-form label { font-size: 0.9rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #666; margin-bottom: 0.6rem; display: block; }
-        .questionnaire-form input, .questionnaire-form textarea, .questionnaire-form select { width: 100%; padding: 1rem 1.2rem; font-family: inherit; font-size: 1rem; border-radius: 14px; border: 1px solid rgba(0, 0, 0, 0.15); background: transparent; transition: all 0.25s ease; }
-        .questionnaire-form input:focus, .questionnaire-form textarea:focus, .questionnaire-form select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.03); }
-        .questionnaire-form input::placeholder, .questionnaire-form textarea::placeholder { color: rgba(0, 0, 0, 0.4); }
-        .questionnaire-form button { grid-column: 1 / -1; margin-top: 1.5rem; padding: 1.1rem 2.4rem; font-size: 0.95rem; border-radius: 999px; background: var(--primary); color: white; border: none; font-weight: 600; cursor: pointer; transition: all 0.3s; }
-        .questionnaire-form button:hover { background: #2a2a3e; }
-        #questionnaire h2 { font-size: clamp(2rem, 3vw, 2.6rem); margin-bottom: 0.5rem; }
-        #questionnaire p { max-width: 600px; margin: 0 auto; color: #666; }
-        footer { background: var(--primary); color: var(--light); padding: 3rem 2rem 1.5rem; text-align: center; }
-        footer p { color: rgba(250, 250, 248, 0.7); }
-        footer a { color: var(--secondary); text-decoration: none; }
-        footer a:hover { text-decoration: underline; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; cursor: none; }
+
+        /* Cursor */
+        .cursor { width: 12px; height: 12px; background: var(--gold); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s, background 0.3s; }
+        .cursor.grow { width: 40px; height: 40px; background: rgba(245,196,0,0.3); }
+        a, button { cursor: none; }
+
+        /* Nav */
+        nav { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 1.6rem 4rem; display: flex; justify-content: space-between; align-items: center; background: rgba(6,6,15,0.9); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); transition: padding 0.4s; }
+        nav.scrolled { padding: 1rem 4rem; }
+        .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 2px; color: var(--white); text-decoration: none; }
+        .nav-logo span { color: var(--gold); }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.04em; transition: color 0.2s; text-transform: uppercase; }
+        .nav-links a:hover { color: var(--white); }
+        .nav-cta { padding: 0.65rem 1.6rem; background: var(--gold); color: var(--black) !important; border-radius: 4px; font-weight: 700 !important; }
+        .nav-cta:hover { background: #ffd633 !important; }
+        .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; }
+        .hamburger span { display: block; width: 26px; height: 2px; background: var(--white); transition: all 0.3s; }
+        .mobile-menu { display: none; position: fixed; inset: 0; background: var(--off-black); z-index: 999; flex-direction: column; justify-content: center; align-items: center; gap: 2.5rem; }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: 3px; color: var(--white); text-decoration: none; }
+        .mobile-menu a:hover { color: var(--gold); }
+        .mobile-close { position: absolute; top: 2rem; right: 4rem; background: none; border: none; color: var(--white); font-size: 2rem; }
+
+        /* Hero */
+        .hero { min-height: 55vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 12rem 4rem 6rem; position: relative; overflow: hidden; background: var(--off-black); }
+        .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(59,106,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(59,106,255,0.04) 1px, transparent 1px); background-size: 60px 60px; }
+        .hero-bg-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Bebas Neue', sans-serif; font-size: clamp(6rem, 14vw, 16rem); opacity: 0.04; white-space: nowrap; color: var(--blue); pointer-events: none; }
+        .hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(11,11,28,1) 0%, rgba(11,11,28,0.2) 80%, transparent 100%); }
+        .hero-content { position: relative; z-index: 5; max-width: 800px; }
+        .hero-tag { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+        .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 8vw, 8rem); line-height: 0.9; letter-spacing: 0.02em; margin-bottom: 1.5rem; }
+        .hero p { font-size: 1.1rem; color: rgba(238,238,255,0.55); line-height: 1.8; max-width: 560px; font-weight: 300; }
+
+        /* Filter */
+        .filter-section { background: var(--off-black); padding: 2rem 4rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        nav ~ .filter-section { top: 73px; }
+        .filter-container { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+        .filter-btn { padding: 0.6rem 1.6rem; background: transparent; border: 1px solid var(--border); color: var(--muted); border-radius: 4px; font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.25s; }
+        .filter-btn:hover { border-color: var(--blue); color: var(--white); }
+        .filter-btn.active { background: var(--gold); border-color: var(--gold); color: var(--black); font-weight: 700; }
+
+        /* Gallery */
+        .gallery { padding: 6rem 4rem; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)); gap: 2px; }
+
+        /* Template card */
+        .template-card { background: var(--card); border: 1px solid var(--border); overflow: hidden; transition: border-color 0.3s, transform 0.4s; animation: fadeInUp 0.6s ease-out backwards; }
+        .template-card:hover { border-color: rgba(59,106,255,0.35); transform: translateY(-6px); }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @media (max-width: 768px) {
+        .template-card:nth-child(1){animation-delay:.05s} .template-card:nth-child(2){animation-delay:.1s} .template-card:nth-child(3){animation-delay:.15s} .template-card:nth-child(4){animation-delay:.2s} .template-card:nth-child(5){animation-delay:.25s} .template-card:nth-child(6){animation-delay:.3s} .template-card:nth-child(7){animation-delay:.35s} .template-card:nth-child(8){animation-delay:.4s}
+
+        .template-preview { height: 300px; position: relative; overflow: hidden; }
+        .template-preview::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(6,6,15,0.7) 0%, transparent 60%); }
+
+        /* Preview themes — each unique */
+        .business-preview { background: linear-gradient(135deg, #030820 0%, #0a1545 40%, #1a2060 100%); }
+        .ecommerce-preview { background: linear-gradient(135deg, #06060f 0%, #0d1a10 50%, #102215 100%); }
+        .portfolio-preview { background: linear-gradient(135deg, #0f0020 0%, #1a0035 50%, #2a0010 100%); }
+        .landing-preview { background: linear-gradient(135deg, #030830 0%, #0a0f50 50%, #100060 100%); }
+        .booking-preview { background: linear-gradient(135deg, #001820 0%, #003040 50%, #004050 100%); }
+        .restaurant-preview { background: linear-gradient(135deg, #200500 0%, #3a0a00 50%, #1a0800 100%); }
+        .realestate-preview { background: linear-gradient(135deg, #021510 0%, #052a1a 50%, #073520 100%); }
+        .medical-preview { background: linear-gradient(135deg, #001828 0%, #003050 50%, #004068 100%); }
+
+        /* Mockup elements */
+        .mockup-wrap { position: relative; z-index: 2; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; height: 100%; }
+        .mockup-nav { height: 32px; background: rgba(238,238,255,0.08); border-radius: 4px; border: 1px solid rgba(238,238,255,0.06); display: flex; align-items: center; padding: 0 0.8rem; gap: 0.5rem; }
+        .mockup-dot { width: 6px; height: 6px; border-radius: 50%; }
+        .mockup-dot.gold { background: var(--gold); }
+        .mockup-dot.blue { background: var(--blue); }
+        .mockup-dot.dim { background: rgba(238,238,255,0.15); }
+        .mockup-hero-block { flex: 1; background: rgba(238,238,255,0.06); border-radius: 4px; border: 1px solid rgba(238,238,255,0.05); position: relative; overflow: hidden; }
+        .mockup-hero-block::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(59,106,255,0.15), rgba(245,196,0,0.08)); }
+        .mockup-hero-line { position: absolute; bottom: 1.2rem; left: 1.2rem; right: 1.2rem; }
+        .mockup-hero-line span { display: block; height: 6px; background: rgba(238,238,255,0.2); border-radius: 3px; margin-bottom: 6px; }
+        .mockup-hero-line span:first-child { width: 60%; background: rgba(245,196,0,0.5); }
+        .mockup-hero-line span:nth-child(2) { width: 40%; }
+        .mockup-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+        .mockup-grid-item { height: 56px; background: rgba(238,238,255,0.06); border-radius: 4px; border: 1px solid rgba(238,238,255,0.04); }
+        .mockup-grid-item:nth-child(1) { border-top: 2px solid var(--blue); }
+        .mockup-grid-item:nth-child(2) { border-top: 2px solid var(--gold); }
+        .mockup-grid-item:nth-child(3) { border-top: 2px solid rgba(238,238,255,0.2); }
+
+        /* Hover overlay */
+        .preview-overlay { position: absolute; inset: 0; z-index: 10; background: rgba(6,6,15,0.88); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 1rem; opacity: 0; transition: opacity 0.35s; }
+        .template-card:hover .preview-overlay { opacity: 1; }
+        .preview-btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.9rem 2rem; background: var(--gold); color: var(--black); text-decoration: none; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 4px; transition: background 0.2s, transform 0.2s; }
+        .preview-btn:hover { background: #ffd633; transform: translateY(-2px); }
+        .preview-btn-outline { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.9rem 2rem; background: transparent; color: var(--white); text-decoration: none; font-weight: 600; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 4px; border: 1px solid var(--border); transition: border-color 0.2s, background 0.2s; }
+        .preview-btn-outline:hover { border-color: var(--blue); background: var(--blue-dim); }
+
+        /* Card info */
+        .template-info { padding: 2rem 2rem 2.5rem; border-top: 1px solid var(--border); }
+        .template-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; gap: 1rem; }
+        .template-info h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.05em; line-height: 1; }
+        .template-category { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.35rem 0.9rem; border: 1px solid var(--border); color: var(--gold); border-radius: 20px; white-space: nowrap; }
+        .template-info p { font-size: 0.9rem; color: rgba(238,238,255,0.45); line-height: 1.8; font-weight: 300; margin-bottom: 1.5rem; }
+        .template-features { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.8rem; }
+        .feature-tag { font-size: 0.7rem; padding: 0.3rem 0.8rem; border: 1px solid var(--border); border-radius: 20px; color: var(--muted); letter-spacing: 0.04em; }
+        .template-actions { display: flex; gap: 0.8rem; }
+        .btn { flex: 1; padding: 0.85rem 1.2rem; border-radius: 4px; font-weight: 600; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; text-align: center; transition: all 0.25s; font-family: 'DM Sans', sans-serif; border: none; }
+        .btn-primary { background: var(--blue); color: var(--white); }
+        .btn-primary:hover { background: #5580ff; transform: translateY(-2px); }
+        .btn-secondary { background: transparent; color: var(--white); border: 1.5px solid var(--border); }
+        .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+        /* Questionnaire section */
+        .questionnaire-section { background: var(--off-black); padding: 8rem 4rem; border-top: 1px solid var(--border); }
+        .questionnaire-inner { max-width: 900px; margin: 0 auto; }
+        .questionnaire-inner .section-label { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+        .questionnaire-inner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 5vw, 5rem); line-height: 0.95; margin-bottom: 1rem; }
+        .questionnaire-inner > p { font-size: 1rem; color: rgba(238,238,255,0.45); font-weight: 300; margin-bottom: 3.5rem; }
+        .q-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .q-form .full { grid-column: 1 / -1; }
+        .q-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .q-group label { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; }
+        .q-group input, .q-group select, .q-group textarea { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 1rem 1.2rem; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.95rem; transition: border-color 0.3s; width: 100%; }
+        .q-group input:focus, .q-group select:focus, .q-group textarea:focus { outline: none; border-color: rgba(59,106,255,0.5); }
+        .q-group input::placeholder, .q-group textarea::placeholder { color: rgba(238,238,255,0.2); }
+        .q-group select { color: rgba(238,238,255,0.7); }
+        .q-group select option { background: var(--card); color: var(--white); }
+        .q-submit { grid-column: 1 / -1; display: inline-flex; align-items: center; gap: 0.8rem; padding: 1.1rem 2.8rem; background: var(--gold); color: var(--black); border: none; border-radius: 4px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.5rem; transition: all 0.3s; width: fit-content; }
+        .q-submit:hover { background: #ffd633; transform: translateY(-2px); }
+
+        /* CTA */
+        .cta-section { background: var(--black); padding: 8rem 4rem; text-align: center; position: relative; overflow: hidden; border-top: 1px solid var(--border); }
+        .cta-section::before { content: 'START NOW'; position: absolute; bottom: -4rem; left: 50%; transform: translateX(-50%); font-family: 'Bebas Neue', sans-serif; font-size: clamp(8rem, 18vw, 22rem); color: rgba(59,106,255,0.04); white-space: nowrap; pointer-events: none; }
+        .cta-inner { position: relative; z-index: 5; max-width: 700px; margin: 0 auto; }
+        .cta-section .section-label { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: block; }
+        .cta-section h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 6vw, 6rem); line-height: 0.92; margin-bottom: 1.5rem; }
+        .cta-section p { font-size: 1.05rem; color: rgba(238,238,255,0.5); line-height: 1.8; margin-bottom: 2.5rem; font-weight: 300; }
+        .cta-btn { display: inline-flex; align-items: center; gap: 0.8rem; padding: 1.1rem 2.8rem; background: var(--gold); color: var(--black); text-decoration: none; font-weight: 700; font-size: 0.88rem; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 4px; transition: all 0.3s; }
+        .cta-btn:hover { background: #ffd633; transform: translateY(-2px); }
+
+        /* Footer */
+        footer { background: var(--off-black); border-top: 1px solid var(--border); padding: 3rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+        .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; color: var(--white); text-decoration: none; }
+        .footer-logo span { color: var(--gold); }
+        .footer-links { display: flex; gap: 2rem; list-style: none; }
+        .footer-links a { font-size: 0.82rem; color: var(--muted); text-decoration: none; text-transform: uppercase; letter-spacing: 0.08em; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--white); }
+        .footer-copy { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--muted); }
+
+        /* Marquee */
+        .marquee-wrap { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--off-black); overflow: hidden; padding: 0.9rem 0; }
+        .marquee-track { display: flex; gap: 4rem; animation: marquee 22s linear infinite; white-space: nowrap; }
+        .marquee-item { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.15em; color: var(--muted); display: flex; align-items: center; gap: 2rem; }
+        .marquee-dot { color: var(--gold); }
+        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+        /* Reveal */
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            nav { padding: 1.4rem 2rem; }
             .nav-links { display: none; }
-            .gallery-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .template-actions { flex-direction: column; }
-            .mockup-content { grid-template-columns: 1fr; }
-            .questionnaire-panel { padding: 2.5rem 2rem; }
-            .questionnaire-form { grid-template-columns: 1fr; gap: 2rem; }
+            .hamburger { display: flex; }
+            .hero { padding: 10rem 2rem 4rem; }
+            .filter-section { padding: 1.5rem 2rem; }
+            .gallery { padding: 4rem 2rem; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .questionnaire-section { padding: 5rem 2rem; }
+            .q-form { grid-template-columns: 1fr; }
+            .cta-section { padding: 5rem 2rem; }
+            footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+            .footer-links { flex-wrap: wrap; justify-content: center; }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="nav-container">
-            <a href="https://yumicodes.com" class="logo">Miko's Web Dev</a>
-            <ul class="nav-links">
-                <li><a href="#questionnaire">Get Started</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Professional Website Templates</h1>
-            <p>Browse my collection of stunning, ready-to-customize templates. Each one is designed with your industry in mind and can be tailored to match your brand perfectly.</p>
-        </div>
-    </section>
+<div class="cursor" id="cursor"></div>
 
-    <section class="filter-section">
-        <div class="filter-container">
-            <button class="filter-btn active" data-filter="all">All Templates</button>
-            <button class="filter-btn" data-filter="business">Business</button>
-            <button class="filter-btn" data-filter="ecommerce">E-Commerce</button>
-            <button class="filter-btn" data-filter="creative">Creative</button>
-            <button class="filter-btn" data-filter="service">Services</button>
-        </div>
-    </section>
+<div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose">✕</button>
+    <a href="go-digitals.html#services" onclick="document.getElementById('mobileMenu').classList.remove('open')">Services</a>
+    <a href="go-digitals.html#photography" onclick="document.getElementById('mobileMenu').classList.remove('open')">Photography</a>
+    <a href="go-digitals.html#pricing" onclick="document.getElementById('mobileMenu').classList.remove('open')">Pricing</a>
+    <a href="#questionnaire" onclick="document.getElementById('mobileMenu').classList.remove('open')">Get Started</a>
+</div>
 
-    <section class="gallery">
-        <div class="gallery-grid" id="galleryGrid">
+<nav id="navbar">
+    <a href="go-digitals.html" class="nav-logo">GO <span>DIGITALS</span></a>
+    <ul class="nav-links">
+        <li><a href="go-digitals.html#services">Services</a></li>
+        <li><a href="go-digitals.html#photography">Photography</a></li>
+        <li><a href="go-digitals.html#pricing">Pricing</a></li>
+        <li><a href="#questionnaire" class="nav-cta">Get Started</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
 
-            <div class="template-card" data-category="business">
-                <div class="template-preview business-preview">
-                    <div class="mockup-header"></div>
-                    <div class="mockup-hero"></div>
-                    <div class="mockup-content"><div class="mockup-card"></div><div class="mockup-card"></div><div class="mockup-card"></div></div>
-                    <div class="preview-overlay">
-                        <a href="https://yumicodes.com/business-template.html" target="_blank" class="preview-btn">View Live Demo</a>
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-bg-text">TEMPLATES</div>
+    <div class="hero-content reveal">
+        <p class="hero-tag">✦ Template Gallery</p>
+        <h1>READY-MADE.<br>FULLY YOURS.</h1>
+        <p>Browse our collection of premium website templates — each one built for a specific industry, fully customizable to your brand, and ready to launch fast.</p>
+    </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-wrap" aria-hidden="true">
+    <div class="marquee-track">
+        <span class="marquee-item">Business <span class="marquee-dot">✦</span></span>
+        <span class="marquee-item">E-Commerce <span class="marquee-dot">✦</span></span>
+        <span class="marquee-item">Portfolio <span class="marquee-dot">✦</span></span>
+        <span class="marquee-item">Landing Pages <span class="marquee-dot">✦</span></span>
+        <span class="marquee-item">Booking Systems <span class="marquee-dot">✦</span></span>
+        <span class="marquee-item">Restaurant &amp; Cafe <span class="marquee-dot">✦</span></span>
+        <span class="marquee-item">Real Estate <span class="marquee-dot">✦</span></span>
+        <span class="marquee-item">Healthcare <span class="marquee-dot">✦</span></span>
+        <span class="marquee-item">Business <span class="marquee-dot">✦</span></span>
+        <span class="marquee-item">E-Commerce <span class="marquee-dot">✦</span></span>
+        <span class="marquee-item">Portfolio <span class="marquee-dot">✦</span></span>
+        <span class="marquee-item">Landing Pages <span class="marquee-dot">✦</span></span>
+        <span class="marquee-item">Booking Systems <span class="marquee-dot">✦</span></span>
+        <span class="marquee-item">Restaurant &amp; Cafe <span class="marquee-dot">✦</span></span>
+        <span class="marquee-item">Real Estate <span class="marquee-dot">✦</span></span>
+        <span class="marquee-item">Healthcare <span class="marquee-dot">✦</span></span>
+    </div>
+</div>
+
+<!-- Filter -->
+<div class="filter-section" id="filterBar">
+    <div class="filter-container">
+        <button class="filter-btn active" data-filter="all">All Templates</button>
+        <button class="filter-btn" data-filter="business">Business</button>
+        <button class="filter-btn" data-filter="ecommerce">E-Commerce</button>
+        <button class="filter-btn" data-filter="creative">Creative</button>
+        <button class="filter-btn" data-filter="service">Services</button>
+    </div>
+</div>
+
+<!-- Gallery -->
+<section class="gallery">
+    <div class="gallery-grid" id="galleryGrid">
+
+        <!-- Business -->
+        <div class="template-card" data-category="business">
+            <div class="template-preview business-preview">
+                <div class="mockup-wrap">
+                    <div class="mockup-nav"><div class="mockup-dot gold"></div><div class="mockup-dot blue"></div><div class="mockup-dot dim"></div></div>
+                    <div class="mockup-hero-block">
+                        <div class="mockup-hero-line"><span></span><span></span></div>
                     </div>
+                    <div class="mockup-grid"><div class="mockup-grid-item"></div><div class="mockup-grid-item"></div><div class="mockup-grid-item"></div></div>
                 </div>
-                <div class="template-info">
-                    <div class="template-header">
-                        <h3>Professional Business</h3>
-                        <span class="template-category">Business</span>
-                    </div>
-                    <p>Perfect for service-based businesses, consultancies, and corporate websites. Features a clean, professional layout with service showcases and client testimonials.</p>
-                    <div class="template-features">
-                        <span class="feature-tag">Contact Forms</span><span class="feature-tag">Service Pages</span><span class="feature-tag">About Section</span><span class="feature-tag">Statistics</span>
-                    </div>
-                    <div class="template-actions">
-                        <a href="https://yumicodes.com/business-template.html" target="_blank" class="btn btn-primary">View Demo</a>
-                        <a href="https://yumicodes.com/#contact" class="btn btn-secondary">Customize</a>
-                    </div>
+                <div class="preview-overlay">
+                    <a href="https://yumicodes.com/business-template.html" target="_blank" class="preview-btn">View Live Demo →</a>
+                    <a href="go-digitals.html#contact" class="preview-btn-outline">Customize This</a>
                 </div>
             </div>
-
-            <div class="template-card" data-category="ecommerce">
-                <div class="template-preview ecommerce-preview">
-                    <div class="mockup-header"></div>
-                    <div class="mockup-content"><div class="mockup-card"></div><div class="mockup-card"></div><div class="mockup-card"></div></div>
-                    <div class="preview-overlay">
-                        <a href="https://yumicodes.com/ecommerce-template.html" target="_blank" class="preview-btn">View Live Demo</a>
-                    </div>
+            <div class="template-info">
+                <div class="template-header">
+                    <h3>Professional Business</h3>
+                    <span class="template-category">Business</span>
                 </div>
-                <div class="template-info">
-                    <div class="template-header">
-                        <h3>E-Commerce Store</h3>
-                        <span class="template-category">E-Commerce</span>
-                    </div>
-                    <p>Full-featured online store with product catalogs, shopping cart, and checkout. Integrated with trusted payment processors for seamless transactions.</p>
-                    <div class="template-features">
-                        <span class="feature-tag">Product Gallery</span><span class="feature-tag">Shopping Cart</span><span class="feature-tag">Checkout</span><span class="feature-tag">Newsletter</span>
-                    </div>
-                    <div class="template-actions">
-                        <a href="https://yumicodes.com/ecommerce-template.html" target="_blank" class="btn btn-primary">View Demo</a>
-                        <a href="https://yumicodes.com/#contact" class="btn btn-secondary">Customize</a>
-                    </div>
+                <p>Perfect for service-based businesses, consultancies, and corporate websites. Clean layout with service showcases and client testimonials.</p>
+                <div class="template-features">
+                    <span class="feature-tag">Contact Forms</span><span class="feature-tag">Service Pages</span><span class="feature-tag">About Section</span><span class="feature-tag">Statistics</span>
                 </div>
-            </div>
-
-            <div class="template-card" data-category="creative">
-                <div class="template-preview portfolio-preview">
-                    <div class="mockup-header"></div>
-                    <div class="mockup-content"><div class="mockup-card"></div><div class="mockup-card"></div><div class="mockup-card"></div></div>
-                    <div class="preview-overlay">
-                        <a href="https://yumicodes.com/portfolio-template.html" target="_blank" class="preview-btn">View Live Demo</a>
-                    </div>
+                <div class="template-actions">
+                    <a href="https://yumicodes.com/business-template.html" target="_blank" class="btn btn-primary">View Demo</a>
+                    <a href="go-digitals.html#contact" class="btn btn-secondary">Customize</a>
                 </div>
-                <div class="template-info">
-                    <div class="template-header">
-                        <h3>Creative Portfolio</h3>
-                        <span class="template-category">Creative</span>
-                    </div>
-                    <p>Showcase your work beautifully with this bold, artistic design. Perfect for photographers, designers, artists, and creative professionals.</p>
-                    <div class="template-features">
-                        <span class="feature-tag">Photo Gallery</span><span class="feature-tag">Project Pages</span><span class="feature-tag">Contact Form</span><span class="feature-tag">Skills Display</span>
-                    </div>
-                    <div class="template-actions">
-                        <a href="https://yumicodes.com/portfolio-template.html" target="_blank" class="btn btn-primary">View Demo</a>
-                        <a href="https://yumicodes.com/#contact" class="btn btn-secondary">Customize</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="template-card" data-category="business">
-                <div class="template-preview landing-preview">
-                    <div class="mockup-hero"></div>
-                    <div class="mockup-content"><div class="mockup-card"></div><div class="mockup-card"></div><div class="mockup-card"></div></div>
-                    <div class="preview-overlay">
-                        <a href="https://yumicodes.com/landing-template.html" target="_blank" class="preview-btn">View Live Demo</a>
-                    </div>
-                </div>
-                <div class="template-info">
-                    <div class="template-header">
-                        <h3>Landing Page</h3>
-                        <span class="template-category">Marketing</span>
-                    </div>
-                    <p>High-converting single-page design focused on one clear goal. Great for product launches, campaigns, and lead generation initiatives.</p>
-                    <div class="template-features">
-                        <span class="feature-tag">Lead Capture</span><span class="feature-tag">Call-to-Action</span><span class="feature-tag">Analytics Ready</span><span class="feature-tag">Social Proof</span>
-                    </div>
-                    <div class="template-actions">
-                        <a href="https://yumicodes.com/landing-template.html" target="_blank" class="btn btn-primary">View Demo</a>
-                        <a href="https://yumicodes.com/#contact" class="btn btn-secondary">Customize</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="template-card" data-category="service">
-                <div class="template-preview booking-preview">
-                    <div class="mockup-header"></div>
-                    <div class="mockup-hero"></div>
-                    <div class="mockup-content"><div class="mockup-card"></div><div class="mockup-card"></div><div class="mockup-card"></div></div>
-                    <div class="preview-overlay">
-                        <a href="https://yumicodes.com/booking-template.html" target="_blank" class="preview-btn">View Live Demo</a>
-                    </div>
-                </div>
-                <div class="template-info">
-                    <div class="template-header">
-                        <h3>Booking System</h3>
-                        <span class="template-category">Services</span>
-                    </div>
-                    <p>Professional appointment scheduling for salons, spas, consultants, and service providers. Includes calendar integration and automated reminders.</p>
-                    <div class="template-features">
-                        <span class="feature-tag">Calendar</span><span class="feature-tag">Appointments</span><span class="feature-tag">Reminders</span><span class="feature-tag">Time Slots</span>
-                    </div>
-                    <div class="template-actions">
-                        <a href="https://yumicodes.com/booking-template.html" target="_blank" class="btn btn-primary">View Demo</a>
-                        <a href="https://yumicodes.com/#contact" class="btn btn-secondary">Customize</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="template-card" data-category="service">
-                <div class="template-preview restaurant-preview">
-                    <div class="mockup-header"></div>
-                    <div class="mockup-hero"></div>
-                    <div class="mockup-content"><div class="mockup-card"></div><div class="mockup-card"></div><div class="mockup-card"></div></div>
-                    <div class="preview-overlay">
-                        <a href="https://yumicodes.com/restaurant-template.html" target="_blank" class="preview-btn">View Live Demo</a>
-                    </div>
-                </div>
-                <div class="template-info">
-                    <div class="template-header">
-                        <h3>Restaurant &amp; Cafe</h3>
-                        <span class="template-category">Food &amp; Drink</span>
-                    </div>
-                    <p>Beautiful menu displays, online ordering, and reservation system. Perfect for restaurants, cafes, bars, and food service businesses.</p>
-                    <div class="template-features">
-                        <span class="feature-tag">Menu Display</span><span class="feature-tag">Online Booking</span><span class="feature-tag">Gallery</span><span class="feature-tag">Story Section</span>
-                    </div>
-                    <div class="template-actions">
-                        <a href="https://yumicodes.com/restaurant-template.html" target="_blank" class="btn btn-primary">View Demo</a>
-                        <a href="https://yumicodes.com/#contact" class="btn btn-secondary">Customize</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="template-card" data-category="business">
-                <div class="template-preview realestate-preview">
-                    <div class="mockup-header"></div>
-                    <div class="mockup-content"><div class="mockup-card"></div><div class="mockup-card"></div><div class="mockup-card"></div></div>
-                    <div class="preview-overlay">
-                        <a href="https://yumicodes.com/real-estate-template.html" target="_blank" class="preview-btn">View Live Demo</a>
-                    </div>
-                </div>
-                <div class="template-info">
-                    <div class="template-header">
-                        <h3>Real Estate</h3>
-                        <span class="template-category">Real Estate</span>
-                    </div>
-                    <p>Property listings with advanced search filters, virtual tours, and contact forms. Ideal for realtors, brokers, and property managers.</p>
-                    <div class="template-features">
-                        <span class="feature-tag">Property Listings</span><span class="feature-tag">Search Filters</span><span class="feature-tag">Contact Forms</span><span class="feature-tag">Featured Properties</span>
-                    </div>
-                    <div class="template-actions">
-                        <a href="https://yumicodes.com/real-estate-template.html" target="_blank" class="btn btn-primary">View Demo</a>
-                        <a href="https://yumicodes.com/#contact" class="btn btn-secondary">Customize</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="template-card" data-category="service">
-                <div class="template-preview medical-preview">
-                    <div class="mockup-header"></div>
-                    <div class="mockup-hero"></div>
-                    <div class="mockup-content"><div class="mockup-card"></div><div class="mockup-card"></div><div class="mockup-card"></div></div>
-                    <div class="preview-overlay">
-                        <a href="https://yumicodes.com/medical-template.html" target="_blank" class="preview-btn">View Live Demo</a>
-                    </div>
-                </div>
-                <div class="template-info">
-                    <div class="template-header">
-                        <h3>Medical &amp; Healthcare</h3>
-                        <span class="template-category">Healthcare</span>
-                    </div>
-                    <p>Professional healthcare websites with appointment booking, service information, and patient resources. HIPAA-compliant design considerations.</p>
-                    <div class="template-features">
-                        <span class="feature-tag">Appointments</span><span class="feature-tag">Services Info</span><span class="feature-tag">HIPAA Aware</span><span class="feature-tag">Testimonials</span>
-                    </div>
-                    <div class="template-actions">
-                        <a href="https://yumicodes.com/medical-template.html" target="_blank" class="btn btn-primary">View Demo</a>
-                        <a href="https://yumicodes.com/#contact" class="btn btn-secondary">Customize</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <section id="questionnaire" class="gallery">
-        <div class="cta-content" style="text-align:center;">
-            <h2>Project Questionnaire</h2>
-            <p>Answer a few quick questions so I can understand your vision.</p>
-            <div class="questionnaire-panel">
-                <form class="questionnaire-form">
-                    <div><label>1. What type of website do you need?</label><input type="text" placeholder="Business, Portfolio, E-commerce…" required></div>
-                    <div><label>2. What is the main goal?</label><input type="text" placeholder="Leads, sales, bookings…" required></div>
-                    <div><label>3. Do you have branding?</label><input type="text" placeholder="Yes / No / Partially"></div>
-                    <div><label>4. Who is your target audience?</label><input type="text" placeholder="Describe your ideal customer"></div>
-                    <div class="full"><label>5. Any specific features you want?</label><input type="text" placeholder="Payments, booking system, forms, gallery…"></div>
-                    <button type="submit">Submit Questionnaire</button>
-                </form>
             </div>
         </div>
-    </section>
 
-    <section class="cta-section">
-        <div class="cta-content">
-            <h2>Ready to Get Started?</h2>
-            <p>Choose a template and let me customize it to perfectly match your brand, or start from scratch with a completely custom design.</p>
-            <a href="https://yumicodes.com/#contact" class="cta-btn">Start Your Project</a>
+        <!-- E-Commerce -->
+        <div class="template-card" data-category="ecommerce">
+            <div class="template-preview ecommerce-preview">
+                <div class="mockup-wrap">
+                    <div class="mockup-nav"><div class="mockup-dot gold"></div><div class="mockup-dot blue"></div><div class="mockup-dot dim"></div></div>
+                    <div class="mockup-hero-block">
+                        <div class="mockup-hero-line"><span></span><span></span></div>
+                    </div>
+                    <div class="mockup-grid"><div class="mockup-grid-item"></div><div class="mockup-grid-item"></div><div class="mockup-grid-item"></div></div>
+                </div>
+                <div class="preview-overlay">
+                    <a href="https://yumicodes.com/ecommerce-template.html" target="_blank" class="preview-btn">View Live Demo →</a>
+                    <a href="go-digitals.html#contact" class="preview-btn-outline">Customize This</a>
+                </div>
+            </div>
+            <div class="template-info">
+                <div class="template-header">
+                    <h3>E-Commerce Store</h3>
+                    <span class="template-category">E-Commerce</span>
+                </div>
+                <p>Full-featured online store with product catalogs, shopping cart, and checkout. Integrated with trusted payment processors for seamless transactions.</p>
+                <div class="template-features">
+                    <span class="feature-tag">Product Gallery</span><span class="feature-tag">Shopping Cart</span><span class="feature-tag">Checkout</span><span class="feature-tag">Newsletter</span>
+                </div>
+                <div class="template-actions">
+                    <a href="https://yumicodes.com/ecommerce-template.html" target="_blank" class="btn btn-primary">View Demo</a>
+                    <a href="go-digitals.html#contact" class="btn btn-secondary">Customize</a>
+                </div>
+            </div>
         </div>
-    </section>
 
-    <section id="contact" class="cta-section">
-        <div class="cta-content">
-            <h2>Contact Me</h2>
-            <p>
-                📧 <a href="mailto:yumicodes.enterprice@gmail.com">yumicodes.enterprice@gmail.com</a><br><br>
-                Let's discuss your project and create something amazing together.
-            </p>
+        <!-- Portfolio -->
+        <div class="template-card" data-category="creative">
+            <div class="template-preview portfolio-preview">
+                <div class="mockup-wrap">
+                    <div class="mockup-nav"><div class="mockup-dot gold"></div><div class="mockup-dot blue"></div><div class="mockup-dot dim"></div></div>
+                    <div class="mockup-hero-block">
+                        <div class="mockup-hero-line"><span></span><span></span></div>
+                    </div>
+                    <div class="mockup-grid"><div class="mockup-grid-item"></div><div class="mockup-grid-item"></div><div class="mockup-grid-item"></div></div>
+                </div>
+                <div class="preview-overlay">
+                    <a href="https://yumicodes.com/portfolio-template.html" target="_blank" class="preview-btn">View Live Demo →</a>
+                    <a href="go-digitals.html#contact" class="preview-btn-outline">Customize This</a>
+                </div>
+            </div>
+            <div class="template-info">
+                <div class="template-header">
+                    <h3>Creative Portfolio</h3>
+                    <span class="template-category">Creative</span>
+                </div>
+                <p>Showcase your work beautifully with this bold, artistic design. Perfect for photographers, designers, artists, and creative professionals.</p>
+                <div class="template-features">
+                    <span class="feature-tag">Photo Gallery</span><span class="feature-tag">Project Pages</span><span class="feature-tag">Contact Form</span><span class="feature-tag">Skills Display</span>
+                </div>
+                <div class="template-actions">
+                    <a href="https://yumicodes.com/portfolio-template.html" target="_blank" class="btn btn-primary">View Demo</a>
+                    <a href="go-digitals.html#contact" class="btn btn-secondary">Customize</a>
+                </div>
+            </div>
         </div>
-    </section>
 
-    <footer>
-        <p>&copy; 2026 Miko's Web Dev. All rights reserved.</p>
-    </footer>
+        <!-- Landing Page -->
+        <div class="template-card" data-category="business">
+            <div class="template-preview landing-preview">
+                <div class="mockup-wrap">
+                    <div class="mockup-nav"><div class="mockup-dot gold"></div><div class="mockup-dot blue"></div><div class="mockup-dot dim"></div></div>
+                    <div class="mockup-hero-block">
+                        <div class="mockup-hero-line"><span></span><span></span></div>
+                    </div>
+                    <div class="mockup-grid"><div class="mockup-grid-item"></div><div class="mockup-grid-item"></div><div class="mockup-grid-item"></div></div>
+                </div>
+                <div class="preview-overlay">
+                    <a href="https://yumicodes.com/landing-template.html" target="_blank" class="preview-btn">View Live Demo →</a>
+                    <a href="go-digitals.html#contact" class="preview-btn-outline">Customize This</a>
+                </div>
+            </div>
+            <div class="template-info">
+                <div class="template-header">
+                    <h3>Landing Page</h3>
+                    <span class="template-category">Marketing</span>
+                </div>
+                <p>High-converting single-page design focused on one clear goal. Great for product launches, campaigns, and lead generation initiatives.</p>
+                <div class="template-features">
+                    <span class="feature-tag">Lead Capture</span><span class="feature-tag">Call-to-Action</span><span class="feature-tag">Analytics Ready</span><span class="feature-tag">Social Proof</span>
+                </div>
+                <div class="template-actions">
+                    <a href="https://yumicodes.com/landing-template.html" target="_blank" class="btn btn-primary">View Demo</a>
+                    <a href="go-digitals.html#contact" class="btn btn-secondary">Customize</a>
+                </div>
+            </div>
+        </div>
 
-    <script>
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const templateCards = document.querySelectorAll('.template-card');
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const filter = btn.getAttribute('data-filter');
-                templateCards.forEach(card => {
-                    const category = card.getAttribute('data-category');
-                    if (filter === 'all' || category === filter) {
-                        card.style.display = 'block';
-                        card.style.animation = 'none';
-                        setTimeout(() => { card.style.animation = ''; }, 10);
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
+        <!-- Booking -->
+        <div class="template-card" data-category="service">
+            <div class="template-preview booking-preview">
+                <div class="mockup-wrap">
+                    <div class="mockup-nav"><div class="mockup-dot gold"></div><div class="mockup-dot blue"></div><div class="mockup-dot dim"></div></div>
+                    <div class="mockup-hero-block">
+                        <div class="mockup-hero-line"><span></span><span></span></div>
+                    </div>
+                    <div class="mockup-grid"><div class="mockup-grid-item"></div><div class="mockup-grid-item"></div><div class="mockup-grid-item"></div></div>
+                </div>
+                <div class="preview-overlay">
+                    <a href="https://yumicodes.com/booking-template.html" target="_blank" class="preview-btn">View Live Demo →</a>
+                    <a href="go-digitals.html#contact" class="preview-btn-outline">Customize This</a>
+                </div>
+            </div>
+            <div class="template-info">
+                <div class="template-header">
+                    <h3>Booking System</h3>
+                    <span class="template-category">Services</span>
+                </div>
+                <p>Professional appointment scheduling for salons, spas, consultants, and service providers. Includes calendar integration and automated reminders.</p>
+                <div class="template-features">
+                    <span class="feature-tag">Calendar</span><span class="feature-tag">Appointments</span><span class="feature-tag">Reminders</span><span class="feature-tag">Time Slots</span>
+                </div>
+                <div class="template-actions">
+                    <a href="https://yumicodes.com/booking-template.html" target="_blank" class="btn btn-primary">View Demo</a>
+                    <a href="go-digitals.html#contact" class="btn btn-secondary">Customize</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Restaurant -->
+        <div class="template-card" data-category="service">
+            <div class="template-preview restaurant-preview">
+                <div class="mockup-wrap">
+                    <div class="mockup-nav"><div class="mockup-dot gold"></div><div class="mockup-dot blue"></div><div class="mockup-dot dim"></div></div>
+                    <div class="mockup-hero-block">
+                        <div class="mockup-hero-line"><span></span><span></span></div>
+                    </div>
+                    <div class="mockup-grid"><div class="mockup-grid-item"></div><div class="mockup-grid-item"></div><div class="mockup-grid-item"></div></div>
+                </div>
+                <div class="preview-overlay">
+                    <a href="https://yumicodes.com/restaurant-template.html" target="_blank" class="preview-btn">View Live Demo →</a>
+                    <a href="go-digitals.html#contact" class="preview-btn-outline">Customize This</a>
+                </div>
+            </div>
+            <div class="template-info">
+                <div class="template-header">
+                    <h3>Restaurant &amp; Cafe</h3>
+                    <span class="template-category">Food &amp; Drink</span>
+                </div>
+                <p>Beautiful menu displays, online ordering, and reservation system. Perfect for restaurants, cafes, bars, and food service businesses.</p>
+                <div class="template-features">
+                    <span class="feature-tag">Menu Display</span><span class="feature-tag">Online Booking</span><span class="feature-tag">Gallery</span><span class="feature-tag">Story Section</span>
+                </div>
+                <div class="template-actions">
+                    <a href="https://yumicodes.com/restaurant-template.html" target="_blank" class="btn btn-primary">View Demo</a>
+                    <a href="go-digitals.html#contact" class="btn btn-secondary">Customize</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Real Estate -->
+        <div class="template-card" data-category="business">
+            <div class="template-preview realestate-preview">
+                <div class="mockup-wrap">
+                    <div class="mockup-nav"><div class="mockup-dot gold"></div><div class="mockup-dot blue"></div><div class="mockup-dot dim"></div></div>
+                    <div class="mockup-hero-block">
+                        <div class="mockup-hero-line"><span></span><span></span></div>
+                    </div>
+                    <div class="mockup-grid"><div class="mockup-grid-item"></div><div class="mockup-grid-item"></div><div class="mockup-grid-item"></div></div>
+                </div>
+                <div class="preview-overlay">
+                    <a href="https://yumicodes.com/real-estate-template.html" target="_blank" class="preview-btn">View Live Demo →</a>
+                    <a href="go-digitals.html#contact" class="preview-btn-outline">Customize This</a>
+                </div>
+            </div>
+            <div class="template-info">
+                <div class="template-header">
+                    <h3>Real Estate</h3>
+                    <span class="template-category">Real Estate</span>
+                </div>
+                <p>Property listings with advanced search filters, virtual tours, and contact forms. Ideal for realtors, brokers, and property managers.</p>
+                <div class="template-features">
+                    <span class="feature-tag">Property Listings</span><span class="feature-tag">Search Filters</span><span class="feature-tag">Contact Forms</span><span class="feature-tag">Featured Props</span>
+                </div>
+                <div class="template-actions">
+                    <a href="https://yumicodes.com/real-estate-template.html" target="_blank" class="btn btn-primary">View Demo</a>
+                    <a href="go-digitals.html#contact" class="btn btn-secondary">Customize</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Medical -->
+        <div class="template-card" data-category="service">
+            <div class="template-preview medical-preview">
+                <div class="mockup-wrap">
+                    <div class="mockup-nav"><div class="mockup-dot gold"></div><div class="mockup-dot blue"></div><div class="mockup-dot dim"></div></div>
+                    <div class="mockup-hero-block">
+                        <div class="mockup-hero-line"><span></span><span></span></div>
+                    </div>
+                    <div class="mockup-grid"><div class="mockup-grid-item"></div><div class="mockup-grid-item"></div><div class="mockup-grid-item"></div></div>
+                </div>
+                <div class="preview-overlay">
+                    <a href="https://yumicodes.com/medical-template.html" target="_blank" class="preview-btn">View Live Demo →</a>
+                    <a href="go-digitals.html#contact" class="preview-btn-outline">Customize This</a>
+                </div>
+            </div>
+            <div class="template-info">
+                <div class="template-header">
+                    <h3>Medical &amp; Healthcare</h3>
+                    <span class="template-category">Healthcare</span>
+                </div>
+                <p>Professional healthcare websites with appointment booking, service information, and patient resources. HIPAA-compliant design considerations.</p>
+                <div class="template-features">
+                    <span class="feature-tag">Appointments</span><span class="feature-tag">Services Info</span><span class="feature-tag">HIPAA Aware</span><span class="feature-tag">Testimonials</span>
+                </div>
+                <div class="template-actions">
+                    <a href="https://yumicodes.com/medical-template.html" target="_blank" class="btn btn-primary">View Demo</a>
+                    <a href="go-digitals.html#contact" class="btn btn-secondary">Customize</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Questionnaire -->
+<section class="questionnaire-section" id="questionnaire">
+    <div class="questionnaire-inner reveal">
+        <p class="section-label">Project Brief</p>
+        <h2>TELL US WHAT<br>YOU NEED.</h2>
+        <p>Answer a few quick questions so we can understand your vision and give you the right recommendation.</p>
+        <div class="q-form">
+            <div class="q-group"><label>1. What type of website?</label><input type="text" placeholder="Business, Portfolio, E-commerce…"></div>
+            <div class="q-group"><label>2. What's the main goal?</label><input type="text" placeholder="Leads, sales, bookings…"></div>
+            <div class="q-group"><label>3. Do you have branding?</label><select><option value="" disabled selected>Select…</option><option>Yes, complete brand kit</option><option>Partially (logo only)</option><option>No, starting from scratch</option></select></div>
+            <div class="q-group"><label>4. Target audience</label><input type="text" placeholder="Describe your ideal customer"></div>
+            <div class="q-group full"><label>5. Features you want</label><input type="text" placeholder="Payments, booking, forms, gallery, animations…"></div>
+            <button class="q-submit" type="button" onclick="submitQ()">Submit Brief <span>→</span></button>
+            <div id="qSuccess" style="display:none; grid-column:1/-1; background:rgba(59,106,255,0.1); border:1px solid rgba(59,106,255,0.3); border-radius:6px; padding:1.2rem 1.5rem; color:var(--blue); font-size:0.95rem;">✦ Received! We'll follow up within 24 hours.</div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="cta-inner reveal">
+        <span class="section-label">Ready to Launch?</span>
+        <h2>PICK A TEMPLATE.<br>WE'LL DO THE REST.</h2>
+        <p>Choose any template above and we'll customize it to your brand, content, and goals — fast turnaround, no surprises.</p>
+        <a href="go-digitals.html#contact" class="cta-btn">Start Your Project →</a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <a href="go-digitals.html" class="footer-logo">GO <span>DIGITALS</span></a>
+    <ul class="footer-links">
+        <li><a href="go-digitals.html#services">Services</a></li>
+        <li><a href="go-digitals.html#photography">Photography</a></li>
+        <li><a href="go-digitals.html#pricing">Pricing</a></li>
+        <li><a href="go-digitals.html#contact">Contact</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 Go Digitals</p>
+</footer>
+
+<script>
+    // Cursor
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+    document.querySelectorAll('a, button').forEach(el => { el.addEventListener('mouseenter', () => cursor.classList.add('grow')); el.addEventListener('mouseleave', () => cursor.classList.remove('grow')); });
+
+    // Nav scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 60); });
+
+    // Mobile menu
+    document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileMenu').classList.add('open'));
+    document.getElementById('mobileClose').addEventListener('click', () => document.getElementById('mobileMenu').classList.remove('open'));
+
+    // Filter
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filter = btn.dataset.filter;
+            document.querySelectorAll('.template-card').forEach(card => {
+                if (filter === 'all' || card.dataset.category === filter) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
             });
         });
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-        });
-    </script>
+    });
+
+    // Reveal
+    const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Questionnaire submit
+    function submitQ() {
+        document.getElementById('qSuccess').style.display = 'block';
+    }
+</script>
 </body>
 </html>
