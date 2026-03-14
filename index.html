@@ -8,936 +8,238 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
     :root {
       --black: #06060f;
       --off-black: #0b0b1c;
-      --card: #10102a;
-      --amber: #FFD600;
-      --amber-dim: rgba(255,214,0,0.12);
-      --white: #d6eeff;
-      --muted: #4d6080;
-      --border: rgba(77,180,255,0.10);
-      --cyan: #3db8ff;
+      --card: #0f0f24;
+      --gold: #f5c400;
+      --gold-dim: rgba(245,196,0,0.12);
+      --blue: #3b6aff;
+      --blue-dim: rgba(59,106,255,0.12);
+      --white: #eeeeff;
+      --muted: #5a5a8a;
+      --border: rgba(100,100,255,0.12);
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--black);
-      color: var(--white);
-      overflow-x: hidden;
-      cursor: none;
-    }
-
-    /* ── Custom cursor ── */
-    .cursor {
-      width: 12px; height: 12px;
-      background: var(--amber);
-      border-radius: 50%;
-      position: fixed; top: 0; left: 0;
-      pointer-events: none; z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
-      mix-blend-mode: normal;
-    }
-    .cursor.grow { width: 40px; height: 40px; background: rgba(255,107,0,0.3); }
+    body { font-family: 'DM Sans', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; cursor: none; }
+    .cursor { width: 12px; height: 12px; background: var(--gold); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s; }
+    .cursor.grow { width: 40px; height: 40px; background: rgba(245,196,0,0.3); }
     a, button { cursor: none; }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; width: 100%; z-index: 1000;
-      padding: 1.6rem 4rem;
-      display: flex; justify-content: space-between; align-items: center;
-      background: rgba(6,6,15,0.92);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      transition: padding 0.4s;
-    }
+    nav { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 1.6rem 4rem; display: flex; justify-content: space-between; align-items: center; background: rgba(6,6,15,0.9); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); transition: padding 0.4s; }
     nav.scrolled { padding: 1rem 4rem; }
-
-    .nav-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.8rem;
-      letter-spacing: 2px;
-      color: var(--white);
-      text-decoration: none;
-    }
-    .nav-logo span { color: var(--amber); }
-
-    .nav-links {
-      display: flex; gap: 2.5rem; list-style: none; align-items: center;
-    }
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      transition: color 0.2s;
-      text-transform: uppercase;
-    }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 2px; color: var(--white); text-decoration: none; }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.04em; transition: color 0.2s; text-transform: uppercase; }
     .nav-links a:hover { color: var(--white); }
-    .nav-cta {
-      padding: 0.65rem 1.6rem;
-      background: var(--amber);
-      color: var(--black) !important;
-      border-radius: 4px;
-      font-weight: 700 !important;
-    }
-    .nav-cta:hover { background: #e6c200 !important; color: var(--black) !important; }
-
-    /* hamburger */
+    .nav-cta { padding: 0.65rem 1.6rem; background: var(--gold); color: var(--black) !important; border-radius: 4px; font-weight: 700 !important; }
+    .nav-cta:hover { background: #ffd633 !important; }
     .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; }
     .hamburger span { display: block; width: 26px; height: 2px; background: var(--white); transition: all 0.3s; }
-    .mobile-menu {
-      display: none; position: fixed; inset: 0; background: var(--off-black);
-      z-index: 999; flex-direction: column; justify-content: center; align-items: center;
-      gap: 2.5rem;
-    }
+    .mobile-menu { display: none; position: fixed; inset: 0; background: var(--off-black); z-index: 999; flex-direction: column; justify-content: center; align-items: center; gap: 2.5rem; }
     .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 3rem; letter-spacing: 3px;
-      color: var(--white); text-decoration: none;
-      transition: color 0.2s;
-    }
-    .mobile-menu a:hover { color: var(--amber); }
-    .mobile-close {
-      position: absolute; top: 2rem; right: 4rem;
-      background: none; border: none; color: var(--white);
-      font-size: 2rem; line-height: 1;
-    }
-
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-divider {
-      position: absolute;
-      left: 50%; top: 0; bottom: 0; width: 1px;
-      background: var(--border);
-      z-index: 10;
-    }
-
-    .hero-half {
-      display: flex; flex-direction: column;
-      justify-content: flex-end;
-      padding: 10rem 5rem 6rem;
-      position: relative;
-      overflow: hidden;
-      min-height: 100vh;
-    }
-
-    .hero-half::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-size: cover; background-position: center;
-      transition: transform 0.8s ease;
-      z-index: 0;
-    }
-
+    .mobile-menu a { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: 3px; color: var(--white); text-decoration: none; transition: color 0.2s; }
+    .mobile-menu a:hover { color: var(--gold); }
+    .mobile-close { position: absolute; top: 2rem; right: 4rem; background: none; border: none; color: var(--white); font-size: 2rem; line-height: 1; }
+    .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; }
+    .hero-divider { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--border); z-index: 10; }
+    .hero-half { display: flex; flex-direction: column; justify-content: flex-end; padding: 10rem 5rem 6rem; position: relative; overflow: hidden; min-height: 100vh; }
+    .hero-half::before { content: ''; position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 0.8s ease; z-index: 0; }
     .hero-half:hover::before { transform: scale(1.04); }
-
-    .hero-half:after {
-      content: '';
-      position: absolute; inset: 0;
-      z-index: 1;
-    }
-
-    .hero-left::before {
-      background: linear-gradient(135deg, #06060f 0%, #0d1a3a 50%, #050a1a 100%);
-    }
-    .hero-left::after {
-      background: linear-gradient(to top, rgba(8,8,8,0.97) 0%, rgba(8,8,8,0.3) 60%, transparent 100%);
-    }
-
-    .hero-right::before {
-      background: linear-gradient(135deg, #060c1a 0%, #0a1530 50%, #04090f 100%);
-    }
-    .hero-right::after {
-      background: linear-gradient(to top, rgba(8,8,8,0.97) 0%, rgba(8,8,8,0.3) 60%, transparent 100%);
-    }
-
-    .hero-bg-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(8rem, 15vw, 18rem);
-      line-height: 1;
-      opacity: 0.04;
-      white-space: nowrap;
-      z-index: 0;
-      pointer-events: none;
-      letter-spacing: 0.05em;
-    }
-    .hero-left .hero-bg-text { color: #3db8ff; }
-    .hero-right .hero-bg-text { color: var(--amber); }
-
-    /* grid lines decoration */
-    .hero-grid {
-      position: absolute; inset: 0; z-index: 0;
-      background-image:
-        linear-gradient(rgba(61,184,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(61,184,255,0.03) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-
-    .hero-content {
-      position: relative; z-index: 5;
-    }
-
-    .hero-tag {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 1.2rem;
-      opacity: 0.9;
-    }
-
-    .hero-number {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-bottom: 1rem;
-    }
-
-    .hero-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(4rem, 7vw, 7rem);
-      line-height: 0.92;
-      letter-spacing: 0.02em;
-      margin-bottom: 1.8rem;
-    }
-
-    .hero-left .hero-title { color: var(--white); }
-    .hero-right .hero-title { color: var(--white); }
-
-    .hero-desc {
-      font-size: 1rem;
-      color: rgba(245,240,234,0.6);
-      line-height: 1.7;
-      max-width: 340px;
-      margin-bottom: 2.5rem;
-      font-weight: 300;
-    }
-
-    .hero-btn {
-      display: inline-flex; align-items: center; gap: 0.8rem;
-      padding: 1rem 2.2rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border-radius: 4px;
-      transition: all 0.3s;
-    }
-    .hero-btn-primary {
-      background: var(--white);
-      color: var(--black);
-    }
-    .hero-btn-primary:hover { background: var(--amber); }
-    .hero-btn-amber {
-      background: var(--amber);
-      color: var(--black);
-    }
-    .hero-btn-amber:hover { background: #e6c200; transform: translateY(-2px); }
-
+    .hero-half:after { content: ''; position: absolute; inset: 0; z-index: 1; }
+    .hero-left::before { background: linear-gradient(135deg, #06060f 0%, #0a0a2a 50%, #06061a 100%); }
+    .hero-left::after { background: linear-gradient(to top, rgba(6,6,15,0.97) 0%, rgba(6,6,15,0.3) 60%, transparent 100%); }
+    .hero-right::before { background: linear-gradient(135deg, #0a0a00 0%, #1c1800 50%, #120f00 100%); }
+    .hero-right::after { background: linear-gradient(to top, rgba(6,6,15,0.97) 0%, rgba(6,6,15,0.3) 60%, transparent 100%); }
+    .hero-bg-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Bebas Neue', sans-serif; font-size: clamp(8rem, 15vw, 18rem); line-height: 1; opacity: 0.05; white-space: nowrap; z-index: 0; pointer-events: none; letter-spacing: 0.05em; }
+    .hero-left .hero-bg-text { color: var(--blue); }
+    .hero-right .hero-bg-text { color: var(--gold); }
+    .hero-grid { position: absolute; inset: 0; z-index: 0; background-image: linear-gradient(rgba(59,106,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(59,106,255,0.04) 1px, transparent 1px); background-size: 60px 60px; }
+    .hero-content { position: relative; z-index: 5; }
+    .hero-tag { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; opacity: 0.9; }
+    .hero-number { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--muted); margin-bottom: 1rem; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 7vw, 7rem); line-height: 0.92; letter-spacing: 0.02em; margin-bottom: 1.8rem; color: var(--white); }
+    .hero-desc { font-size: 1rem; color: rgba(238,238,255,0.6); line-height: 1.7; max-width: 340px; margin-bottom: 2.5rem; font-weight: 300; }
+    .hero-btn { display: inline-flex; align-items: center; gap: 0.8rem; padding: 1rem 2.2rem; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: all 0.3s; }
+    .hero-btn-primary { background: var(--blue); color: var(--white); }
+    .hero-btn-primary:hover { background: #5580ff; transform: translateY(-2px); }
+    .hero-btn-gold { background: var(--gold); color: var(--black); }
+    .hero-btn-gold:hover { background: #ffd633; transform: translateY(-2px); }
     .hero-btn .arrow { font-size: 1.1rem; transition: transform 0.3s; }
     .hero-btn:hover .arrow { transform: translateX(4px); }
-
-    /* ── MARQUEE ── */
-    .marquee-wrap {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: var(--off-black);
-      overflow: hidden;
-      padding: 1rem 0;
-    }
-    .marquee-track {
-      display: flex; gap: 4rem;
-      animation: marquee 20s linear infinite;
-      white-space: nowrap;
-    }
-    .marquee-item {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.1rem;
-      letter-spacing: 0.15em;
-      color: var(--muted);
-      display: flex; align-items: center; gap: 2rem;
-    }
-    .marquee-dot { color: var(--amber); font-size: 1.4rem; }
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-
-    /* ── SECTION SHARED ── */
+    .marquee-wrap { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--off-black); overflow: hidden; padding: 1rem 0; }
+    .marquee-track { display: flex; gap: 4rem; animation: marquee 20s linear infinite; white-space: nowrap; }
+    .marquee-item { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.15em; color: var(--muted); display: flex; align-items: center; gap: 2rem; }
+    .marquee-dot { color: var(--gold); font-size: 1.4rem; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     section { padding: 8rem 4rem; }
-    .section-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 1rem;
-    }
-    .section-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3rem, 5vw, 5.5rem);
-      line-height: 0.95;
-      letter-spacing: 0.02em;
-      margin-bottom: 1.5rem;
-    }
-    .section-subtitle {
-      font-size: 1.05rem;
-      color: rgba(245,240,234,0.55);
-      line-height: 1.8;
-      max-width: 500px;
-      font-weight: 300;
-    }
-
-    /* ── SERVICES ── */
+    .section-label { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 5vw, 5.5rem); line-height: 0.95; letter-spacing: 0.02em; margin-bottom: 1.5rem; }
+    .section-subtitle { font-size: 1.05rem; color: rgba(238,238,255,0.55); line-height: 1.8; max-width: 500px; font-weight: 300; }
     #services { background: var(--off-black); }
-    .services-header {
-      display: grid; grid-template-columns: 1fr 1fr;
-      align-items: end; gap: 3rem;
-      margin-bottom: 5rem;
-    }
-    .services-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1.5px;
-      border: 1.5px solid var(--border);
-    }
-    .service-card {
-      background: var(--card);
-      padding: 3rem 2.5rem;
-      border-right: 1.5px solid var(--border);
-      position: relative;
-      overflow: hidden;
-      transition: background 0.4s;
-    }
+    .services-header { display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 3rem; margin-bottom: 5rem; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; border: 1.5px solid var(--border); }
+    .service-card { background: var(--card); padding: 3rem 2.5rem; border-right: 1.5px solid var(--border); position: relative; overflow: hidden; transition: background 0.4s; }
     .service-card:last-child { border-right: none; }
-    .service-card:hover { background: #1e1e1e; }
-    .service-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--amber);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s;
-    }
+    .service-card:hover { background: #14142e; }
+    .service-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--gold)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
     .service-card:hover::after { transform: scaleX(1); }
-    .service-num {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--amber);
-      letter-spacing: 0.15em;
-      margin-bottom: 2.5rem;
-    }
-    .service-icon {
-      font-size: 2.2rem;
-      margin-bottom: 1.5rem;
-      display: block;
-    }
-    .service-card h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2rem;
-      letter-spacing: 0.05em;
-      margin-bottom: 1rem;
-    }
-    .service-card p {
-      font-size: 0.95rem;
-      color: rgba(245,240,234,0.5);
-      line-height: 1.8;
-      font-weight: 300;
-    }
-    .service-tags {
-      margin-top: 2rem;
-      display: flex; flex-wrap: wrap; gap: 0.5rem;
-    }
-    .service-tag {
-      font-size: 0.72rem;
-      padding: 0.3rem 0.8rem;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-    }
-
-    /* ── PHOTOGRAPHY HIGHLIGHT ── */
-    #photography {
-      background: var(--black);
-      padding: 8rem 0;
-    }
-    .photo-layout {
-      display: grid;
-      grid-template-columns: 1fr 1.3fr;
-      min-height: 80vh;
-    }
-    .photo-left {
-      padding: 6rem 4rem 6rem 4rem;
-      display: flex; flex-direction: column; justify-content: center;
-      border-right: 1px solid var(--border);
-    }
-    .photo-right {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 1.5px;
-      background: var(--border);
-    }
-    .photo-cell {
-      background: var(--card);
-      display: flex; flex-direction: column;
-      justify-content: flex-end;
-      padding: 2rem;
-      position: relative;
-      overflow: hidden;
-      min-height: 280px;
-    }
-    .photo-cell::before {
-      content: '';
-      position: absolute; inset: 0;
-      transition: transform 0.6s ease;
-    }
+    .service-num { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--gold); letter-spacing: 0.15em; margin-bottom: 2.5rem; }
+    .service-icon { font-size: 2.2rem; margin-bottom: 1.5rem; display: block; }
+    .service-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.05em; margin-bottom: 1rem; }
+    .service-card p { font-size: 0.95rem; color: rgba(238,238,255,0.5); line-height: 1.8; font-weight: 300; }
+    .service-tags { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .service-tag { font-size: 0.72rem; padding: 0.3rem 0.8rem; border: 1px solid var(--border); border-radius: 20px; color: var(--muted); letter-spacing: 0.05em; }
+    #photography { background: var(--black); padding: 8rem 0; }
+    .photo-layout { display: grid; grid-template-columns: 1fr 1.3fr; min-height: 80vh; }
+    .photo-left { padding: 6rem 4rem; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--border); }
+    .photo-right { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1.5px; background: var(--border); }
+    .photo-cell { background: var(--card); display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; position: relative; overflow: hidden; min-height: 280px; }
+    .photo-cell::before { content: ''; position: absolute; inset: 0; transition: transform 0.6s ease; }
     .photo-cell:hover::before { transform: scale(1.05); }
-    .photo-cell-1::before { background: linear-gradient(135deg, #060c20 0%, #0d1f4a 100%); }
-    .photo-cell-2::before { background: linear-gradient(135deg, #04101f 0%, #082040 100%); }
-    .photo-cell-3::before { background: linear-gradient(135deg, #080414 0%, #150a3d 100%); }
-    .photo-cell-4::before { background: linear-gradient(135deg, #06101a 0%, #0d2040 100%); }
-    .photo-cell-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(8,8,8,0.95) 0%, transparent 60%);
-    }
-    .photo-cell-content {
-      position: relative; z-index: 5;
-    }
-    .photo-cell-content h4 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.5rem;
-      letter-spacing: 0.06em;
-      margin-bottom: 0.3rem;
-    }
-    .photo-cell-content p {
-      font-size: 0.8rem; color: var(--muted);
-    }
-    .photo-cell-icon {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -60%);
-      font-size: 3.5rem;
-      opacity: 0.18;
-      z-index: 2;
-    }
-    .photo-stat {
-      margin-top: 3rem;
-      display: flex; gap: 3rem;
-    }
-    .stat-item h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 3.5rem;
-      color: var(--amber);
-      line-height: 1;
-    }
+    .photo-cell-1::before { background: linear-gradient(135deg, #060618 0%, #101040 100%); }
+    .photo-cell-2::before { background: linear-gradient(135deg, #061018 0%, #0a2a40 100%); }
+    .photo-cell-3::before { background: linear-gradient(135deg, #100618 0%, #200a40 100%); }
+    .photo-cell-4::before { background: linear-gradient(135deg, #181200 0%, #3a2c00 100%); }
+    .photo-cell-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(6,6,15,0.95) 0%, transparent 60%); }
+    .photo-cell-content { position: relative; z-index: 5; }
+    .photo-cell-content h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.06em; margin-bottom: 0.3rem; }
+    .photo-cell-content p { font-size: 0.8rem; color: var(--muted); }
+    .photo-cell-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -60%); font-size: 3.5rem; opacity: 0.18; z-index: 2; }
+    .photo-stat { margin-top: 3rem; display: flex; gap: 3rem; }
+    .stat-item h3 { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; color: var(--gold); line-height: 1; }
     .stat-item p { font-size: 0.82rem; color: var(--muted); margin-top: 0.3rem; }
-
-    /* ── PROCESS ── */
     #process { background: var(--off-black); }
-    .process-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 0; margin-top: 5rem;
-      border: 1px solid var(--border);
-    }
-    .process-step {
-      padding: 3rem 2.5rem;
-      border-right: 1px solid var(--border);
-      position: relative;
-    }
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 5rem; border: 1px solid var(--border); }
+    .process-step { padding: 3rem 2.5rem; border-right: 1px solid var(--border); position: relative; }
     .process-step:last-child { border-right: none; }
-    .process-line {
-      position: absolute;
-      top: 3.8rem; right: -1px;
-      width: 30px; height: 2px;
-      background: var(--amber);
-    }
+    .process-line { position: absolute; top: 3.8rem; right: -1px; width: 30px; height: 2px; background: linear-gradient(90deg, var(--blue), var(--gold)); }
     .process-step:last-child .process-line { display: none; }
-    .step-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 5rem;
-      color: var(--amber-dim);
-      line-height: 1;
-      margin-bottom: 1.5rem;
-      border: 1px solid var(--amber-dim);
-      width: 70px; height: 70px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.8rem;
-      border-radius: 4px;
-    }
-    .process-step h4 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.5rem;
-      letter-spacing: 0.06em;
-      margin-bottom: 1rem;
-    }
-    .process-step p {
-      font-size: 0.9rem;
-      color: rgba(245,240,234,0.45);
-      line-height: 1.8;
-      font-weight: 300;
-    }
-
-    /* ── PRICING ── */
+    .step-num { font-family: 'Bebas Neue', sans-serif; line-height: 1; margin-bottom: 1.5rem; border: 1px solid var(--blue-dim); width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: var(--blue); background: var(--blue-dim); border-radius: 4px; }
+    .process-step h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.06em; margin-bottom: 1rem; }
+    .process-step p { font-size: 0.9rem; color: rgba(238,238,255,0.45); line-height: 1.8; font-weight: 300; }
     #pricing { background: var(--black); }
-    .pricing-header {
-      display: grid; grid-template-columns: 1fr 1fr;
-      align-items: end; gap: 3rem;
-      margin-bottom: 4rem;
-    }
-    .pricing-tabs {
-      display: flex; gap: 0;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-      width: fit-content;
-      margin-bottom: 3rem;
-    }
-    .tab-btn {
-      padding: 0.7rem 2rem;
-      background: transparent;
-      border: none;
-      color: var(--muted);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      transition: all 0.25s;
-    }
-    .tab-btn.active {
-      background: var(--amber);
-      color: var(--black);
-    }
-    .pricing-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1.5px;
-    }
+    .pricing-header { display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 3rem; margin-bottom: 4rem; }
+    .pricing-tabs { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; width: fit-content; margin-bottom: 3rem; }
+    .tab-btn { padding: 0.7rem 2rem; background: transparent; border: none; color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; transition: all 0.25s; }
+    .tab-btn.active { background: var(--gold); color: var(--black); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; }
     .pricing-panel { display: none; }
     .pricing-panel.active { display: block; }
-    .price-card {
-      background: var(--card);
-      padding: 3rem;
-      border: 1.5px solid var(--border);
-      position: relative;
-      transition: border-color 0.3s, transform 0.3s;
-    }
-    .price-card:hover {
-      border-color: rgba(61,184,255,0.35);
-      transform: translateY(-4px);
-    }
-    .price-card.featured {
-      border-color: var(--amber);
-      background: linear-gradient(135deg, #0a1530, #10102a);
-    }
-    .price-card.featured::before {
-      content: 'MOST POPULAR';
-      position: absolute; top: -13px; left: 50%;
-      transform: translateX(-50%);
-      background: var(--amber);
-      color: var(--black);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      padding: 0.3rem 1rem;
-      border-radius: 20px;
-    }
-    .price-name {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 1.5rem;
-    }
-    .price-amount {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 4.5rem;
-      line-height: 1;
-      margin-bottom: 0.4rem;
-    }
+    .price-card { background: var(--card); padding: 3rem; border: 1.5px solid var(--border); position: relative; transition: border-color 0.3s, transform 0.3s; }
+    .price-card:hover { border-color: rgba(59,106,255,0.35); transform: translateY(-4px); }
+    .price-card.featured { border-color: var(--gold); background: linear-gradient(135deg, #161200, #0f0f24); }
+    .price-card.featured::before { content: 'MOST POPULAR'; position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--black); font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; padding: 0.3rem 1rem; border-radius: 20px; }
+    .price-name { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+    .price-amount { font-family: 'Bebas Neue', sans-serif; font-size: 4.5rem; line-height: 1; margin-bottom: 0.4rem; }
     .price-currency { font-size: 2rem; vertical-align: super; }
-    .price-note {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-bottom: 2.5rem;
-    }
-    .price-features {
-      list-style: none;
-      margin-bottom: 2.5rem;
-    }
-    .price-features li {
-      font-size: 0.92rem;
-      padding: 0.7rem 0;
-      border-bottom: 1px solid var(--border);
-      color: rgba(245,240,234,0.75);
-      display: flex; align-items: center; gap: 0.8rem;
-    }
+    .price-note { font-size: 0.8rem; color: var(--muted); margin-bottom: 2.5rem; }
+    .price-features { list-style: none; margin-bottom: 2.5rem; }
+    .price-features li { font-size: 0.92rem; padding: 0.7rem 0; border-bottom: 1px solid var(--border); color: rgba(238,238,255,0.75); display: flex; align-items: center; gap: 0.8rem; }
     .price-features li:last-child { border-bottom: none; }
-    .price-features li::before {
-      content: '✦';
-      color: var(--amber);
-      font-size: 0.5rem;
-      flex-shrink: 0;
-    }
-    .price-cta {
-      display: block; width: 100%;
-      padding: 1rem;
-      text-align: center;
-      border: 1.5px solid var(--white);
-      color: var(--white);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.85rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      border-radius: 4px;
-      transition: all 0.3s;
-      background: transparent;
-    }
-    .price-cta:hover { background: var(--white); color: var(--black); }
-    .price-card.featured .price-cta {
-      background: var(--amber); border-color: var(--amber); color: var(--black);
-    }
-    .price-card.featured .price-cta:hover { background: #e6c200; }
-
-    /* ── FAQ ── */
+    .price-features li::before { content: '✦'; color: var(--blue); font-size: 0.5rem; flex-shrink: 0; }
+    .price-cta { display: block; width: 100%; padding: 1rem; text-align: center; border: 1.5px solid var(--white); color: var(--white); text-decoration: none; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 4px; transition: all 0.3s; background: transparent; }
+    .price-cta:hover { background: var(--blue); border-color: var(--blue); }
+    .price-card.featured .price-cta { background: var(--gold); border-color: var(--gold); color: var(--black); }
+    .price-card.featured .price-cta:hover { background: #ffd633; }
     #faq { background: var(--off-black); }
-    .faq-layout {
-      display: grid; grid-template-columns: 0.7fr 1.3fr;
-      gap: 8rem; align-items: start;
-    }
-    .faq-list { margin-top: 0; }
-    .faq-item {
-      border-bottom: 1px solid var(--border);
-    }
-    .faq-q {
-      width: 100%; background: none; border: none;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.8rem 0;
-      color: var(--white);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 500;
-      text-align: left;
-      gap: 1rem;
-    }
-    .faq-icon {
-      color: var(--amber);
-      font-size: 1.4rem;
-      line-height: 1;
-      transition: transform 0.3s;
-      flex-shrink: 0;
-    }
+    .faq-layout { display: grid; grid-template-columns: 0.7fr 1.3fr; gap: 8rem; align-items: start; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-q { width: 100%; background: none; border: none; display: flex; justify-content: space-between; align-items: center; padding: 1.8rem 0; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 1.05rem; font-weight: 500; text-align: left; gap: 1rem; }
+    .faq-icon { color: var(--gold); font-size: 1.4rem; line-height: 1; transition: transform 0.3s; flex-shrink: 0; }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
-    .faq-a {
-      max-height: 0; overflow: hidden;
-      transition: max-height 0.4s ease, padding 0.3s;
-    }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; }
     .faq-item.open .faq-a { max-height: 200px; padding-bottom: 1.5rem; }
-    .faq-a p {
-      font-size: 0.95rem;
-      color: rgba(245,240,234,0.5);
-      line-height: 1.9;
-      font-weight: 300;
-    }
-
-    /* ── CONTACT ── */
-    #contact {
-      background: var(--black);
-      position: relative; overflow: hidden;
-    }
-    #contact::before {
-      content: 'LET\'S TALK';
-      position: absolute;
-      bottom: -5rem; right: -2rem;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(8rem, 18vw, 20rem);
-      line-height: 1;
-      color: rgba(61,184,255,0.04);
-      white-space: nowrap;
-      pointer-events: none;
-    }
-    .contact-layout {
-      display: grid; grid-template-columns: 1fr 1.2fr;
-      gap: 8rem; align-items: start;
-    }
+    .faq-a p { font-size: 0.95rem; color: rgba(238,238,255,0.5); line-height: 1.9; font-weight: 300; }
+    #contact { background: var(--black); position: relative; overflow: hidden; }
+    #contact::before { content: "LET'S TALK"; position: absolute; bottom: -5rem; right: -2rem; font-family: 'Bebas Neue', sans-serif; font-size: clamp(8rem, 18vw, 20rem); line-height: 1; color: rgba(59,106,255,0.04); white-space: nowrap; pointer-events: none; }
+    .contact-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 8rem; align-items: start; }
     .contact-info { padding-top: 1rem; }
-    .contact-detail {
-      display: flex; align-items: flex-start; gap: 1.2rem;
-      margin-bottom: 2rem;
-    }
-    .contact-icon {
-      width: 44px; height: 44px;
-      background: var(--amber-dim);
-      border: 1px solid rgba(255,214,0,0.2);
-      border-radius: 6px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem;
-      flex-shrink: 0;
-    }
-    .contact-detail h5 {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      color: var(--muted);
-      text-transform: uppercase;
-      margin-bottom: 0.3rem;
-    }
-    .contact-detail p, .contact-detail a {
-      font-size: 0.95rem;
-      color: var(--white);
-      text-decoration: none;
-      font-weight: 400;
-    }
-    .contact-detail a:hover { color: var(--amber); }
+    .contact-detail { display: flex; align-items: flex-start; gap: 1.2rem; margin-bottom: 2rem; }
+    .contact-icon { width: 44px; height: 44px; background: var(--gold-dim); border: 1px solid rgba(245,196,0,0.2); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .contact-detail h5 { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 0.3rem; }
+    .contact-detail p, .contact-detail a { font-size: 0.95rem; color: var(--white); text-decoration: none; font-weight: 400; }
+    .contact-detail a:hover { color: var(--gold); }
     .contact-form { position: relative; z-index: 5; }
-    .form-row {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1.2rem; margin-bottom: 1.2rem;
-    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
     .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
     .form-group.full { grid-column: 1 / -1; }
-    .form-group label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 1rem 1.2rem;
-      color: var(--white);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.95rem;
-      transition: border-color 0.3s;
-      width: 100%;
-    }
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: rgba(255,107,0,0.5);
-    }
-    .form-group input::placeholder,
-    .form-group textarea::placeholder {
-      color: rgba(245,240,234,0.2);
-    }
-    .form-group select { color: rgba(245,240,234,0.7); }
+    .form-group label { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; }
+    .form-group input, .form-group select, .form-group textarea { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 1rem 1.2rem; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.95rem; transition: border-color 0.3s; width: 100%; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: rgba(59,106,255,0.5); }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(238,238,255,0.2); }
+    .form-group select { color: rgba(238,238,255,0.7); }
     .form-group select option { background: var(--card); color: var(--white); }
     .form-group textarea { resize: vertical; min-height: 140px; }
-    .form-submit {
-      display: inline-flex; align-items: center; gap: 0.8rem;
-      padding: 1.1rem 2.8rem;
-      background: var(--amber);
-      color: var(--black);
-      border: none;
-      border-radius: 4px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.88rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-top: 1rem;
-      transition: all 0.3s;
-    }
-    .form-submit:hover { background: #e6c200; transform: translateY(-2px); }
+    .form-submit { display: inline-flex; align-items: center; gap: 0.8rem; padding: 1.1rem 2.8rem; background: var(--gold); color: var(--black); border: none; border-radius: 4px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 1rem; transition: all 0.3s; }
+    .form-submit:hover { background: #ffd633; transform: translateY(-2px); }
     .form-submit .arrow { transition: transform 0.3s; }
     .form-submit:hover .arrow { transform: translateX(4px); }
-
-    /* success message */
-    .form-success {
-      display: none;
-      background: rgba(255,107,0,0.1);
-      border: 1px solid rgba(255,107,0,0.3);
-      border-radius: 6px;
-      padding: 1.2rem 1.5rem;
-      color: var(--amber);
-      font-size: 0.95rem;
-      margin-top: 1rem;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--off-black);
-      border-top: 1px solid var(--border);
-      padding: 3rem 4rem;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .footer-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.5rem; letter-spacing: 2px;
-      color: var(--white); text-decoration: none;
-    }
-    .footer-logo span { color: var(--amber); }
-    .footer-links {
-      display: flex; gap: 2rem; list-style: none;
-    }
-    .footer-links a {
-      font-size: 0.82rem;
-      color: var(--muted); text-decoration: none;
-      text-transform: uppercase; letter-spacing: 0.08em;
-      transition: color 0.2s;
-    }
+    .form-success { display: none; background: rgba(59,106,255,0.1); border: 1px solid rgba(59,106,255,0.3); border-radius: 6px; padding: 1.2rem 1.5rem; color: var(--blue); font-size: 0.95rem; margin-top: 1rem; }
+    footer { background: var(--off-black); border-top: 1px solid var(--border); padding: 3rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; color: var(--white); text-decoration: none; }
+    .footer-logo span { color: var(--gold); }
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a { font-size: 0.82rem; color: var(--muted); text-decoration: none; text-transform: uppercase; letter-spacing: 0.08em; transition: color 0.2s; }
     .footer-links a:hover { color: var(--white); }
-    .footer-copy {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-    }
-
-    /* ── SCROLL REVEAL ── */
-    .reveal {
-      opacity: 0; transform: translateY(40px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
+    .footer-copy { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.05em; }
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-left {
-      opacity: 0; transform: translateX(-40px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
+    .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .reveal-left.visible { opacity: 1; transform: translateX(0); }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 1100px) {
-      .services-grid { grid-template-columns: 1fr 1fr; }
-      .service-card:nth-child(2) { border-right: none; }
-      .process-grid { grid-template-columns: 1fr 1fr; }
-      .process-step:nth-child(2) { border-right: none; }
-      .photo-layout { grid-template-columns: 1fr; }
-      .photo-right { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
-    }
-
-    @media (max-width: 900px) {
-      nav { padding: 1.4rem 2rem; }
-      nav.scrolled { padding: 0.9rem 2rem; }
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-      .mobile-close { display: block; }
-      .hero { grid-template-columns: 1fr; }
-      .hero-divider { display: none; }
-      .hero-half { min-height: 60vh; padding: 9rem 2.5rem 4rem; }
-      .hero-right { border-top: 1px solid var(--border); }
-      section { padding: 5rem 2rem; }
-      .services-header { grid-template-columns: 1fr; }
-      .services-grid { grid-template-columns: 1fr; }
-      .service-card { border-right: none; border-bottom: 1.5px solid var(--border); }
-      .pricing-header { grid-template-columns: 1fr; }
-      .pricing-grid { grid-template-columns: 1fr; }
-      .faq-layout { grid-template-columns: 1fr; gap: 3rem; }
-      .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
-      .form-row { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
-      .footer-links { flex-wrap: wrap; justify-content: center; }
-      .process-grid { grid-template-columns: 1fr; }
-      .process-step { border-right: none; border-bottom: 1px solid var(--border); }
-      .photo-right { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 600px) {
-      .hero-title { font-size: 3.5rem; }
-      .mobile-close { right: 2rem; }
-    }
+    @media (max-width: 1100px) { .services-grid { grid-template-columns: 1fr 1fr; } .service-card:nth-child(2) { border-right: none; } .process-grid { grid-template-columns: 1fr 1fr; } .process-step:nth-child(2) { border-right: none; } .photo-layout { grid-template-columns: 1fr; } .photo-right { grid-template-columns: 1fr 1fr; grid-template-rows: auto; } }
+    @media (max-width: 900px) { nav { padding: 1.4rem 2rem; } nav.scrolled { padding: 0.9rem 2rem; } .nav-links { display: none; } .hamburger { display: flex; } .mobile-close { display: block; } .hero { grid-template-columns: 1fr; } .hero-divider { display: none; } .hero-half { min-height: 60vh; padding: 9rem 2.5rem 4rem; } .hero-right { border-top: 1px solid var(--border); } section { padding: 5rem 2rem; } .services-header { grid-template-columns: 1fr; } .services-grid { grid-template-columns: 1fr; } .service-card { border-right: none; border-bottom: 1.5px solid var(--border); } .pricing-header { grid-template-columns: 1fr; } .pricing-grid { grid-template-columns: 1fr; } .faq-layout { grid-template-columns: 1fr; gap: 3rem; } .contact-layout { grid-template-columns: 1fr; gap: 3rem; } .form-row { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 1.5rem; text-align: center; } .footer-links { flex-wrap: wrap; justify-content: center; } .process-grid { grid-template-columns: 1fr; } .process-step { border-right: none; border-bottom: 1px solid var(--border); } .photo-right { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) { .hero-title { font-size: 3.5rem; } .mobile-close { right: 2rem; } }
   </style>
 </head>
 <body>
-
-  <!-- Custom cursor -->
   <div class="cursor" id="cursor"></div>
-
-  <!-- Mobile menu -->
   <div class="mobile-menu" id="mobileMenu">
     <button class="mobile-close" id="mobileClose" aria-label="Close menu">✕</button>
     <a href="#services" onclick="closeMobile()">Services</a>
     <a href="#photography" onclick="closeMobile()">Photography</a>
     <a href="#pricing" onclick="closeMobile()">Pricing</a>
     <a href="#contact" onclick="closeMobile()">Contact</a>
-    <a href="https://yumicodes.com/template-gallery.html" onclick="closeMobile()">Templates</a>
+    <a href="template-gallery.html" onclick="closeMobile()">Templates</a>
   </div>
-
-  <!-- Nav -->
   <nav id="navbar">
     <a href="#" class="nav-logo">GO <span>DIGITALS</span></a>
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>
       <li><a href="#photography">Photography</a></li>
       <li><a href="#pricing">Pricing</a></li>
-      <li><a href="https://yumicodes.com/template-gallery.html">Templates</a></li>
+      <li><a href="template-gallery.html">Templates</a></li>
       <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Open menu">
       <span></span><span></span><span></span>
     </button>
   </nav>
-
-  <!-- ── HERO ── -->
   <section class="hero" id="home">
     <div class="hero-divider"></div>
-
-    <!-- Web Dev side -->
     <div class="hero-half hero-left">
       <div class="hero-grid"></div>
       <div class="hero-bg-text">WEB</div>
       <div class="hero-content">
         <p class="hero-number">01 / 02</p>
         <p class="hero-tag">✦ Web Development</p>
-        <h1 class="hero-title">
-          WEBSITES<br>THAT<br>CONVERT
-        </h1>
+        <h1 class="hero-title">WEBSITES<br>THAT<br>CONVERT</h1>
         <p class="hero-desc">Custom, fast, and modern websites built for your business. From landing pages to full e-commerce — designed to impress and engineered to perform.</p>
-        <a href="https://yumicodes.com/template-gallery.html" class="hero-btn hero-btn-primary">
-          Browse Templates <span class="arrow">→</span>
-        </a>
+        <a href="template-gallery.html" class="hero-btn hero-btn-primary">Browse Templates <span class="arrow">→</span></a>
       </div>
     </div>
-
-    <!-- Photography side -->
     <div class="hero-half hero-right">
       <div class="hero-grid"></div>
       <div class="hero-bg-text">PHOTO</div>
       <div class="hero-content">
         <p class="hero-number">02 / 02</p>
         <p class="hero-tag">✦ Product Photography</p>
-        <h1 class="hero-title">
-          PHOTOS<br>THAT<br>SELL
-        </h1>
+        <h1 class="hero-title">PHOTOS<br>THAT<br>SELL</h1>
         <p class="hero-desc">Professional product photography for e-commerce, brands, and online stores. Clean, editorial, and scroll-stopping — so your products stand out.</p>
-        <a href="#contact" class="hero-btn hero-btn-amber">
-          Book a Shoot <span class="arrow">→</span>
-        </a>
+        <a href="#contact" class="hero-btn hero-btn-gold">Book a Shoot <span class="arrow">→</span></a>
       </div>
     </div>
   </section>
-
-  <!-- ── MARQUEE ── -->
   <div class="marquee-wrap" aria-hidden="true">
     <div class="marquee-track">
       <span class="marquee-item">Web Design <span class="marquee-dot">✦</span></span>
@@ -948,7 +250,6 @@
       <span class="marquee-item">Studio Shoots <span class="marquee-dot">✦</span></span>
       <span class="marquee-item">Shopify Stores <span class="marquee-dot">✦</span></span>
       <span class="marquee-item">Visual Content <span class="marquee-dot">✦</span></span>
-      <!-- duplicate for seamless loop -->
       <span class="marquee-item">Web Design <span class="marquee-dot">✦</span></span>
       <span class="marquee-item">E-Commerce <span class="marquee-dot">✦</span></span>
       <span class="marquee-item">Product Photography <span class="marquee-dot">✦</span></span>
@@ -959,471 +260,157 @@
       <span class="marquee-item">Visual Content <span class="marquee-dot">✦</span></span>
     </div>
   </div>
-
-  <!-- ── SERVICES ── -->
   <section id="services">
     <div class="services-header reveal">
       <div>
-        <p class="section-label">What I Offer</p>
+        <p class="section-label">What We Offer</p>
         <h2 class="section-title">TWO<br>DISCIPLINES.<br>ONE STUDIO.</h2>
       </div>
-      <p class="section-subtitle">Whether you need a high-converting website, stunning product photos, or both — I handle everything so your brand looks consistent across every touchpoint.</p>
+      <p class="section-subtitle">Whether you need a high-converting website, stunning product photos, or both — we handle everything so your brand looks consistent across every touchpoint.</p>
     </div>
-
     <div class="services-grid">
       <div class="service-card reveal" style="transition-delay:0.1s">
         <p class="service-num">01</p>
         <span class="service-icon">⬡</span>
         <h3>Custom Websites</h3>
-        <p>Hand-coded, pixel-perfect websites built from scratch or from my template library. Responsive, fast, and SEO-ready.</p>
-        <div class="service-tags">
-          <span class="service-tag">HTML/CSS/JS</span>
-          <span class="service-tag">Responsive</span>
-          <span class="service-tag">SEO</span>
-          <span class="service-tag">CMS</span>
-        </div>
+        <p>Hand-coded, pixel-perfect websites built from scratch or from our template library. Responsive, fast, and SEO-ready.</p>
+        <div class="service-tags"><span class="service-tag">HTML/CSS/JS</span><span class="service-tag">Responsive</span><span class="service-tag">SEO</span><span class="service-tag">CMS</span></div>
       </div>
       <div class="service-card reveal" style="transition-delay:0.2s">
         <p class="service-num">02</p>
         <span class="service-icon">◈</span>
         <h3>E-Commerce Stores</h3>
         <p>Full online stores with product galleries, cart systems, payment integration, and order management — ready to sell from day one.</p>
-        <div class="service-tags">
-          <span class="service-tag">Shopping Cart</span>
-          <span class="service-tag">Payments</span>
-          <span class="service-tag">Inventory</span>
-          <span class="service-tag">Analytics</span>
-        </div>
+        <div class="service-tags"><span class="service-tag">Shopping Cart</span><span class="service-tag">Payments</span><span class="service-tag">Inventory</span><span class="service-tag">Analytics</span></div>
       </div>
       <div class="service-card reveal" style="transition-delay:0.3s">
         <p class="service-num">03</p>
         <span class="service-icon">◎</span>
         <h3>Product Photography</h3>
         <p>Clean, editorial-quality photos for your products. Shot to convert — optimized for online stores, social media, and print.</p>
-        <div class="service-tags">
-          <span class="service-tag">White Background</span>
-          <span class="service-tag">Lifestyle</span>
-          <span class="service-tag">Flat Lay</span>
-          <span class="service-tag">Packshots</span>
-        </div>
+        <div class="service-tags"><span class="service-tag">White Background</span><span class="service-tag">Lifestyle</span><span class="service-tag">Flat Lay</span><span class="service-tag">Packshots</span></div>
       </div>
     </div>
   </section>
-
-  <!-- ── PHOTOGRAPHY HIGHLIGHT ── -->
   <section id="photography" style="padding:0">
     <div class="photo-layout">
       <div class="photo-left reveal-left">
         <p class="section-label">Product Photography</p>
         <h2 class="section-title">YOUR<br>PRODUCTS,<br>ELEVATED.</h2>
-        <p class="section-subtitle" style="margin-bottom:2rem;">Great photos are the difference between a scroll and a sale. I create product images that stop the thumb — clean, professional, and on-brand.</p>
-        <p style="font-size:0.9rem; color:var(--muted); line-height:1.9; font-weight:300; margin-bottom:2.5rem;">
-          Whether you're launching a new product line on Shopify, need content for Instagram, or want polished images for your website — I've got you covered with fast turnaround and consistent quality.
-        </p>
-        <a href="#contact" class="hero-btn hero-btn-amber" style="width:fit-content">
-          Book a Shoot <span class="arrow">→</span>
-        </a>
+        <p class="section-subtitle" style="margin-bottom:2rem;">Great photos are the difference between a scroll and a sale. We create product images that stop the thumb — clean, professional, and on-brand.</p>
+        <p style="font-size:0.9rem; color:var(--muted); line-height:1.9; font-weight:300; margin-bottom:2.5rem;">Whether you're launching a new product line on Shopify, need content for Instagram, or want polished images for your website — we've got you covered with fast turnaround and consistent quality.</p>
+        <a href="#contact" class="hero-btn hero-btn-gold" style="width:fit-content">Book a Shoot <span class="arrow">→</span></a>
         <div class="photo-stat">
-          <div class="stat-item">
-            <h3>48H</h3>
-            <p>Turnaround<br>for edited photos</p>
-          </div>
-          <div class="stat-item">
-            <h3>RAW+</h3>
-            <p>Edited &amp; raw<br>files included</p>
-          </div>
-          <div class="stat-item">
-            <h3>∞</h3>
-            <p>Revisions until<br>you're happy</p>
-          </div>
+          <div class="stat-item"><h3>48H</h3><p>Turnaround<br>for edited photos</p></div>
+          <div class="stat-item"><h3>RAW+</h3><p>Edited &amp; raw<br>files included</p></div>
+          <div class="stat-item"><h3>∞</h3><p>Revisions until<br>you're happy</p></div>
         </div>
       </div>
-
       <div class="photo-right reveal">
-        <div class="photo-cell photo-cell-1">
-          <div class="photo-cell-overlay"></div>
-          <span class="photo-cell-icon">📦</span>
-          <div class="photo-cell-content">
-            <h4>Packshots</h4>
-            <p>Clean, white-background</p>
-          </div>
-        </div>
-        <div class="photo-cell photo-cell-2">
-          <div class="photo-cell-overlay"></div>
-          <span class="photo-cell-icon">🌿</span>
-          <div class="photo-cell-content">
-            <h4>Lifestyle</h4>
-            <p>Contextual &amp; editorial</p>
-          </div>
-        </div>
-        <div class="photo-cell photo-cell-3">
-          <div class="photo-cell-overlay"></div>
-          <span class="photo-cell-icon">▦</span>
-          <div class="photo-cell-content">
-            <h4>Flat Lay</h4>
-            <p>Overhead compositions</p>
-          </div>
-        </div>
-        <div class="photo-cell photo-cell-4">
-          <div class="photo-cell-overlay"></div>
-          <span class="photo-cell-icon">✦</span>
-          <div class="photo-cell-content">
-            <h4>Detail Shots</h4>
-            <p>Texture &amp; close-ups</p>
-          </div>
-        </div>
+        <div class="photo-cell photo-cell-1"><div class="photo-cell-overlay"></div><span class="photo-cell-icon">📦</span><div class="photo-cell-content"><h4>Packshots</h4><p>Clean, white-background</p></div></div>
+        <div class="photo-cell photo-cell-2"><div class="photo-cell-overlay"></div><span class="photo-cell-icon">🌿</span><div class="photo-cell-content"><h4>Lifestyle</h4><p>Contextual &amp; editorial</p></div></div>
+        <div class="photo-cell photo-cell-3"><div class="photo-cell-overlay"></div><span class="photo-cell-icon">▦</span><div class="photo-cell-content"><h4>Flat Lay</h4><p>Overhead compositions</p></div></div>
+        <div class="photo-cell photo-cell-4"><div class="photo-cell-overlay"></div><span class="photo-cell-icon">✦</span><div class="photo-cell-content"><h4>Detail Shots</h4><p>Texture &amp; close-ups</p></div></div>
       </div>
     </div>
   </section>
-
-  <!-- ── PROCESS ── -->
   <section id="process">
     <div class="reveal" style="text-align:center; margin-bottom:0">
-      <p class="section-label" style="justify-content:center; display:block; text-align:center;">How It Works</p>
+      <p class="section-label" style="display:block; text-align:center;">How It Works</p>
       <h2 class="section-title" style="text-align:center; font-size:clamp(2.5rem,4vw,4.5rem)">SIMPLE. CLEAR. FAST.</h2>
     </div>
     <div class="process-grid">
-      <div class="process-step reveal" style="transition-delay:0.1s">
-        <div class="process-line"></div>
-        <div class="step-num">01</div>
-        <h4>Discovery</h4>
-        <p>We discuss your project goals, audience, and vision. Fill out my quick questionnaire or message me directly — no obligation, just a conversation.</p>
-      </div>
-      <div class="process-step reveal" style="transition-delay:0.2s">
-        <div class="process-line"></div>
-        <div class="step-num">02</div>
-        <h4>Proposal</h4>
-        <p>I send a clear proposal with timeline, deliverables, and pricing. No hidden fees, no surprises — just what you need and what it costs.</p>
-      </div>
-      <div class="process-step reveal" style="transition-delay:0.3s">
-        <div class="process-line"></div>
-        <div class="step-num">03</div>
-        <h4>Creation</h4>
-        <p>I build your website or shoot your products with regular updates along the way. You review and give feedback at every milestone.</p>
-      </div>
-      <div class="process-step reveal" style="transition-delay:0.4s">
-        <div class="step-num">04</div>
-        <h4>Launch</h4>
-        <p>I deliver the final files, publish your site, or hand over edited photos — fully polished and ready to go live. Aftercare support included.</p>
-      </div>
+      <div class="process-step reveal" style="transition-delay:0.1s"><div class="process-line"></div><div class="step-num">01</div><h4>Discovery</h4><p>We discuss your project goals, audience, and vision. Fill out our quick questionnaire or message us directly — no obligation, just a conversation.</p></div>
+      <div class="process-step reveal" style="transition-delay:0.2s"><div class="process-line"></div><div class="step-num">02</div><h4>Proposal</h4><p>We send a clear proposal with timeline, deliverables, and pricing. No hidden fees, no surprises — just what you need and what it costs.</p></div>
+      <div class="process-step reveal" style="transition-delay:0.3s"><div class="process-line"></div><div class="step-num">03</div><h4>Creation</h4><p>We build your website or shoot your products with regular updates. You review and give feedback at every milestone.</p></div>
+      <div class="process-step reveal" style="transition-delay:0.4s"><div class="step-num">04</div><h4>Launch</h4><p>We deliver the final files, publish your site, or hand over edited photos — fully polished and ready to go live. Aftercare included.</p></div>
     </div>
   </section>
-
-  <!-- ── PRICING ── -->
   <section id="pricing">
     <div class="pricing-header reveal">
-      <div>
-        <p class="section-label">Transparent Pricing</p>
-        <h2 class="section-title">INVEST<br>IN YOUR<br>BRAND.</h2>
-      </div>
+      <div><p class="section-label">Transparent Pricing</p><h2 class="section-title">INVEST<br>IN YOUR<br>BRAND.</h2></div>
       <p class="section-subtitle">Flat-rate packages so you always know what you're getting. No hidden costs, no hourly surprises.</p>
     </div>
-
     <div class="pricing-tabs reveal">
       <button class="tab-btn active" onclick="switchTab('web')">Web Dev</button>
       <button class="tab-btn" onclick="switchTab('photo')">Photography</button>
     </div>
-
     <div class="pricing-panel active" id="panel-web">
       <div class="pricing-grid">
-        <div class="price-card reveal" style="transition-delay:0.1s">
-          <p class="price-name">Starter</p>
-          <div class="price-amount"><span class="price-currency">£</span>245</div>
-          <p class="price-note">One-time, single page</p>
-          <ul class="price-features">
-            <li>1-page landing website</li>
-            <li>Mobile responsive design</li>
-            <li>Contact form integration</li>
-            <li>Basic SEO setup</li>
-            <li>2 rounds of revisions</li>
-            <li>Delivered in 5–7 days</li>
-          </ul>
-          <a href="#contact" class="price-cta">Get Started</a>
-        </div>
-        <div class="price-card featured reveal" style="transition-delay:0.2s">
-          <p class="price-name">Business</p>
-          <div class="price-amount"><span class="price-currency">£</span>840</div>
-          <p class="price-note">Most popular choice</p>
-          <ul class="price-features">
-            <li>Up to 5 pages</li>
-            <li>Custom design (no templates)</li>
-            <li>CMS / easy content editing</li>
-            <li>Contact &amp; booking forms</li>
-            <li>Full SEO optimization</li>
-            <li>Unlimited revisions</li>
-            <li>Delivered in 10–14 days</li>
-          </ul>
-          <a href="#contact" class="price-cta">Get Started</a>
-        </div>
-        <div class="price-card reveal" style="transition-delay:0.3s">
-          <p class="price-name">E-Commerce</p>
-          <div class="price-amount"><span class="price-currency">£</span>1,750</div>
-          <p class="price-note">Full online store</p>
-          <ul class="price-features">
-            <li>Unlimited products</li>
-            <li>Shopping cart &amp; checkout</li>
-            <li>Payment gateway setup</li>
-            <li>Inventory management</li>
-            <li>Order email notifications</li>
-            <li>SEO &amp; speed optimized</li>
-            <li>Delivered in 2–3 weeks</li>
-          </ul>
-          <a href="#contact" class="price-cta">Get Started</a>
-        </div>
+        <div class="price-card reveal" style="transition-delay:0.1s"><p class="price-name">Starter</p><div class="price-amount"><span class="price-currency">£</span>245</div><p class="price-note">One-time, single page</p><ul class="price-features"><li>1-page landing website</li><li>Mobile responsive design</li><li>Contact form integration</li><li>Basic SEO setup</li><li>2 rounds of revisions</li><li>Delivered in 5–7 days</li></ul><a href="#contact" class="price-cta">Get Started</a></div>
+        <div class="price-card featured reveal" style="transition-delay:0.2s"><p class="price-name">Business</p><div class="price-amount"><span class="price-currency">£</span>840</div><p class="price-note">Most popular choice</p><ul class="price-features"><li>Up to 5 pages</li><li>Custom design (no templates)</li><li>CMS / easy content editing</li><li>Contact &amp; booking forms</li><li>Full SEO optimization</li><li>Unlimited revisions</li><li>Delivered in 10–14 days</li></ul><a href="#contact" class="price-cta">Get Started</a></div>
+        <div class="price-card reveal" style="transition-delay:0.3s"><p class="price-name">E-Commerce</p><div class="price-amount"><span class="price-currency">£</span>1,750</div><p class="price-note">Full online store</p><ul class="price-features"><li>Unlimited products</li><li>Shopping cart &amp; checkout</li><li>Payment gateway setup</li><li>Inventory management</li><li>Order email notifications</li><li>SEO &amp; speed optimized</li><li>Delivered in 2–3 weeks</li></ul><a href="#contact" class="price-cta">Get Started</a></div>
       </div>
     </div>
-
     <div class="pricing-panel" id="panel-photo">
       <div class="pricing-grid">
-        <div class="price-card reveal" style="transition-delay:0.1s">
-          <p class="price-name">Essentials</p>
-          <div class="price-amount"><span class="price-currency">£</span>105</div>
-          <p class="price-note">Up to 5 products</p>
-          <ul class="price-features">
-            <li>5 products, 3 angles each</li>
-            <li>White or neutral background</li>
-            <li>Basic retouching</li>
-            <li>Web-optimized exports</li>
-            <li>Delivered in 48 hours</li>
-          </ul>
-          <a href="#contact" class="price-cta">Book Now</a>
-        </div>
-        <div class="price-card featured reveal" style="transition-delay:0.2s">
-          <p class="price-name">Studio Pack</p>
-          <div class="price-amount"><span class="price-currency">£</span>245</div>
-          <p class="price-note">Best for online stores</p>
-          <ul class="price-features">
-            <li>Up to 15 products</li>
-            <li>Multiple angles per product</li>
-            <li>White background + lifestyle</li>
-            <li>Professional retouching</li>
-            <li>Print &amp; web resolution</li>
-            <li>RAW files included</li>
-            <li>Delivered in 48–72 hours</li>
-          </ul>
-          <a href="#contact" class="price-cta">Book Now</a>
-        </div>
-        <div class="price-card reveal" style="transition-delay:0.3s">
-          <p class="price-name">Full Brand</p>
-          <div class="price-amount"><span class="price-currency">£</span>525</div>
-          <p class="price-note">Complete visual content</p>
-          <ul class="price-features">
-            <li>Up to 30 products</li>
-            <li>All shot styles included</li>
-            <li>Social media crops</li>
-            <li>Flat lay compositions</li>
-            <li>Detail &amp; texture shots</li>
-            <li>Full post-production</li>
-            <li>Usage rights — all platforms</li>
-          </ul>
-          <a href="#contact" class="price-cta">Book Now</a>
-        </div>
+        <div class="price-card reveal" style="transition-delay:0.1s"><p class="price-name">Essentials</p><div class="price-amount"><span class="price-currency">£</span>105</div><p class="price-note">Up to 5 products</p><ul class="price-features"><li>5 products, 3 angles each</li><li>White or neutral background</li><li>Basic retouching</li><li>Web-optimized exports</li><li>Delivered in 48 hours</li></ul><a href="#contact" class="price-cta">Book Now</a></div>
+        <div class="price-card featured reveal" style="transition-delay:0.2s"><p class="price-name">Studio Pack</p><div class="price-amount"><span class="price-currency">£</span>245</div><p class="price-note">Best for online stores</p><ul class="price-features"><li>Up to 15 products</li><li>Multiple angles per product</li><li>White background + lifestyle</li><li>Professional retouching</li><li>Print &amp; web resolution</li><li>RAW files included</li><li>Delivered in 48–72 hours</li></ul><a href="#contact" class="price-cta">Book Now</a></div>
+        <div class="price-card reveal" style="transition-delay:0.3s"><p class="price-name">Full Brand</p><div class="price-amount"><span class="price-currency">£</span>525</div><p class="price-note">Complete visual content</p><ul class="price-features"><li>Up to 30 products</li><li>All shot styles included</li><li>Social media crops</li><li>Flat lay compositions</li><li>Detail &amp; texture shots</li><li>Full post-production</li><li>Usage rights — all platforms</li></ul><a href="#contact" class="price-cta">Book Now</a></div>
       </div>
     </div>
   </section>
-
-  <!-- ── FAQ ── -->
   <section id="faq">
     <div class="faq-layout">
       <div class="reveal-left">
         <p class="section-label">FAQ</p>
         <h2 class="section-title" style="font-size:clamp(2.5rem,3.5vw,4rem)">COMMON<br>QUESTIONS.</h2>
-        <p class="section-subtitle" style="margin-top:1.5rem;">Can't find your answer? Just <a href="#contact" style="color:var(--amber); text-decoration:none;">reach out</a> — I reply fast.</p>
+        <p class="section-subtitle" style="margin-top:1.5rem;">Can't find your answer? Just <a href="#contact" style="color:var(--gold); text-decoration:none;">reach out</a> — we reply fast.</p>
       </div>
       <div class="faq-list reveal">
-        <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">
-            Do I need to prepare anything before we start? <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-a"><p>For web projects, it helps to have your logo, any text content (About, Services, etc.), and an idea of 2–3 websites you like. For photography, just bring your products — I handle everything else from setup to delivery.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">
-            How do I pay, and when? <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-a"><p>I accept GCash and bank transfer. For web projects: 50% upfront to start, 50% on delivery. For photography: full payment on the day of the shoot. No hidden fees — what we agree on is what you pay.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">
-            Can I combine web dev and photography? <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-a"><p>Absolutely — and I recommend it. When I build your website AND shoot your products, everything looks cohesive from the start. I offer a bundle discount when you book both services together.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">
-            What if I need changes after delivery? <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-a"><p>Minor fixes within 30 days of delivery are on me. For larger changes or new features, I offer affordable hourly or project-based rates. I'm not the type to disappear after handoff.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">
-            Do you work with clients outside the Philippines? <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-a"><p>Yes! Web dev is fully remote — I work with clients anywhere in the world. Photography is currently available in Metro Manila and nearby areas. Just message me and we'll figure it out.</p></div>
-        </div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Do I need to prepare anything before we start? <span class="faq-icon">+</span></button><div class="faq-a"><p>For web projects, it helps to have your logo, text content, and an idea of 2–3 websites you like. For photography, just bring your products — we handle everything else from setup to delivery.</p></div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How do I pay, and when? <span class="faq-icon">+</span></button><div class="faq-a"><p>We accept GCash and bank transfer. For web projects: 50% upfront to start, 50% on delivery. For photography: full payment on the day of the shoot. No hidden fees — what we agree on is what you pay.</p></div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I combine web dev and photography? <span class="faq-icon">+</span></button><div class="faq-a"><p>Absolutely — and we recommend it. When we build your website AND shoot your products, everything looks cohesive from the start. We offer a bundle discount when you book both services together.</p></div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What if I need changes after delivery? <span class="faq-icon">+</span></button><div class="faq-a"><p>Minor fixes within 30 days of delivery are on us. For larger changes or new features, we offer affordable hourly or project-based rates. We're not the type to disappear after handoff.</p></div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Do you work with clients outside the Philippines? <span class="faq-icon">+</span></button><div class="faq-a"><p>Yes! Web dev is fully remote — we work with clients anywhere in the world. Photography is currently available in Metro Manila and nearby areas. Just message us and we'll figure it out.</p></div></div>
       </div>
     </div>
   </section>
-
-  <!-- ── CONTACT ── -->
   <section id="contact">
     <div class="contact-layout">
       <div class="contact-info reveal-left">
         <p class="section-label">Get In Touch</p>
         <h2 class="section-title" style="font-size:clamp(2.5rem,3.8vw,5rem)">LET'S BUILD<br>SOMETHING<br>GREAT.</h2>
-        <p class="section-subtitle" style="margin:1.5rem 0 3rem;">Tell me about your project. I'll get back to you within 24 hours with ideas, questions, and a rough quote — no commitment needed.</p>
-
-        <div class="contact-detail">
-          <div class="contact-icon">📧</div>
-          <div>
-            <h5>Email</h5>
-            <a href="/cdn-cgi/l/email-protection#3d444850545e5259584e13585349584f4d4f545e587d5a505c5451135e5250"><span class="__cf_email__" data-cfemail="f68f839b9f9599929385d8939882938486849f9593b6919b979f9ad895999b">[email&#160;protected]</span></a>
-          </div>
-        </div>
-        <div class="contact-detail">
-          <div class="contact-icon">📍</div>
-          <div>
-            <h5>Location</h5>
-            <p>Metro Manila, Philippines</p>
-          </div>
-        </div>
-        <div class="contact-detail">
-          <div class="contact-icon">⏱</div>
-          <div>
-            <h5>Response Time</h5>
-            <p>Within 24 hours</p>
-          </div>
-        </div>
+        <p class="section-subtitle" style="margin:1.5rem 0 3rem;">Tell us about your project. We'll get back to you within 24 hours with ideas, questions, and a rough quote — no commitment needed.</p>
+        <div class="contact-detail"><div class="contact-icon">📧</div><div><h5>Email</h5><a href="mailto:yumicodes.enterprice@gmail.com">yumicodes.enterprice@gmail.com</a></div></div>
+        <div class="contact-detail"><div class="contact-icon">📍</div><div><h5>Location</h5><p>Metro Manila, Philippines</p></div></div>
+        <div class="contact-detail"><div class="contact-icon">⏱</div><div><h5>Response Time</h5><p>Within 24 hours</p></div></div>
       </div>
-
       <div class="contact-form reveal">
         <div class="form-row">
-          <div class="form-group">
-            <label>Your Name</label>
-            <input type="text" id="cName" placeholder="Juan dela Cruz">
-          </div>
-          <div class="form-group">
-            <label>Email Address</label>
-            <input type="email" id="cEmail" placeholder="juan@email.com">
-          </div>
+          <div class="form-group"><label>Your Name</label><input type="text" id="cName" placeholder="Juan dela Cruz"></div>
+          <div class="form-group"><label>Email Address</label><input type="email" id="cEmail" placeholder="juan@email.com"></div>
         </div>
         <div class="form-row">
-          <div class="form-group">
-            <label>Service Needed</label>
-            <select id="cService">
-              <option value="" disabled selected>Choose a service…</option>
-              <option>Website — Starter (£245)</option>
-              <option>Website — Business (£840)</option>
-              <option>Website — E-Commerce (£1,750)</option>
-              <option>Photography — Essentials (£105)</option>
-              <option>Photography — Studio Pack (£245)</option>
-              <option>Photography — Full Brand (£525)</option>
-              <option>Web + Photography Bundle</option>
-              <option>Custom / Not Sure Yet</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Budget Range</label>
-            <select id="cBudget">
-              <option value="" disabled selected>Select range…</option>
-              <option>Under £350</option>
-              <option>£350 – £1,000</option>
-              <option>£1,000 – £2,000</option>
-              <option>£2,000+</option>
-            </select>
-          </div>
+          <div class="form-group"><label>Service Needed</label><select id="cService"><option value="" disabled selected>Choose a service…</option><option>Website — Starter (£245)</option><option>Website — Business (£840)</option><option>Website — E-Commerce (£1,750)</option><option>Photography — Essentials (£105)</option><option>Photography — Studio Pack (£245)</option><option>Photography — Full Brand (£525)</option><option>Web + Photography Bundle</option><option>Custom / Not Sure Yet</option></select></div>
+          <div class="form-group"><label>Budget Range</label><select id="cBudget"><option value="" disabled selected>Select range…</option><option>Under £350</option><option>£350 – £1,000</option><option>£1,000 – £2,000</option><option>£2,000+</option></select></div>
         </div>
-        <div class="form-row">
-          <div class="form-group full">
-            <label>Tell Me About Your Project</label>
-            <textarea id="cMessage" placeholder="What are you building? What do you need? Any references or inspiration you love?"></textarea>
-          </div>
-        </div>
-        <button class="form-submit" onclick="submitForm()">
-          Send Message <span class="arrow">→</span>
-        </button>
-        <div class="form-success" id="formSuccess">
-          ✦ Message sent! I'll get back to you within 24 hours.
-        </div>
+        <div class="form-row"><div class="form-group full"><label>Tell Us About Your Project</label><textarea id="cMessage" placeholder="What are you building? What do you need? Any references or inspiration you love?"></textarea></div></div>
+        <button class="form-submit" onclick="submitForm()">Send Message <span class="arrow">→</span></button>
+        <div class="form-success" id="formSuccess">✦ Message sent! We'll get back to you within 24 hours.</div>
       </div>
     </div>
   </section>
-
-  <!-- ── FOOTER ── -->
   <footer>
     <a href="#home" class="footer-logo">GO <span>DIGITALS</span></a>
-    <ul class="footer-links">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#photography">Photography</a></li>
-      <li><a href="#pricing">Pricing</a></li>
-      <li><a href="https://yumicodes.com/template-gallery.html">Templates</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <p class="footer-copy">© 2026 Go Digitals. All rights reserved.</p>
+    <ul class="footer-links"><li><a href="#services">Services</a></li><li><a href="#photography">Photography</a></li><li><a href="#pricing">Pricing</a></li><li><a href="template-gallery.html">Templates</a></li><li><a href="#contact">Contact</a></li></ul>
+    <p class="footer-copy">© 2026 Go Digitals — Web Dev &amp; Photo Studio</p>
   </footer>
-
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    // ── Cursor ──
+  <script>
     const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
-    document.querySelectorAll('a, button').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
-    });
-
-    // ── Nav scroll ──
+    document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+    document.querySelectorAll('a, button').forEach(el => { el.addEventListener('mouseenter', () => cursor.classList.add('grow')); el.addEventListener('mouseleave', () => cursor.classList.remove('grow')); });
     const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 60);
-    });
-
-    // ── Mobile menu ──
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 60); });
     const mobileMenu = document.getElementById('mobileMenu');
     document.getElementById('hamburger').addEventListener('click', () => mobileMenu.classList.add('open'));
     document.getElementById('mobileClose').addEventListener('click', () => mobileMenu.classList.remove('open'));
     function closeMobile() { mobileMenu.classList.remove('open'); }
-
-    // ── Scroll reveal ──
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('visible');
-      });
-    }, { threshold: 0.12 });
+    const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.12 });
     document.querySelectorAll('.reveal, .reveal-left').forEach(el => observer.observe(el));
-
-    // ── Pricing tabs ──
-    function switchTab(type) {
-      document.querySelectorAll('.tab-btn').forEach((b, i) => {
-        b.classList.toggle('active', (i === 0 && type === 'web') || (i === 1 && type === 'photo'));
-      });
-      document.getElementById('panel-web').classList.toggle('active', type === 'web');
-      document.getElementById('panel-photo').classList.toggle('active', type === 'photo');
-    }
-
-    // ── FAQ ──
-    function toggleFaq(btn) {
-      const item = btn.parentElement;
-      const wasOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-      if (!wasOpen) item.classList.add('open');
-    }
-
-    // ── Form ──
-    function submitForm() {
-      const name = document.getElementById('cName').value.trim();
-      const email = document.getElementById('cEmail').value.trim();
-      const service = document.getElementById('cService').value;
-      const msg = document.getElementById('cMessage').value.trim();
-      if (!name || !email || !service || !msg) {
-        alert('Please fill in all required fields.');
-        return;
-      }
-      // Open email client with prefilled content
-      const subject = encodeURIComponent('Project Inquiry — ' + service);
-      const body = encodeURIComponent(
-        'Hi Miko!\n\nName: ' + name +
-        '\nService: ' + service +
-        '\nBudget: ' + (document.getElementById('cBudget').value || 'Not
+    function switchTab(type) { document.querySelectorAll('.tab-btn').forEach((b, i) => { b.classList.toggle('active', (i === 0 && type === 'web') || (i === 1 && type === 'photo')); }); document.getElementById('panel-web').classList.toggle('active', type === 'web'); document.getElementById('panel-photo').classList.toggle('active', type === 'photo'); }
+    function toggleFaq(btn) { const item = btn.parentElement; const wasOpen = item.classList.contains('open'); document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open')); if (!wasOpen) item.classList.add('open'); }
+    function submitForm() { const name = document.getElementById('cName').value.trim(); const email = document.getElementById('cEmail').value.trim(); const service = document.getElementById('cService').value; const msg = document.getElementById('cMessage').value.trim(); if (!name || !email || !service || !msg) { alert('Please fill in all required fields.'); return; } const subject = encodeURIComponent('Project Inquiry — ' + service); const body = encodeURIComponent('Hi Go Digitals!\n\nName: ' + name + '\nService: ' + service + '\nBudget: ' + (document.getElementById('cBudget').value || 'Not specified') + '\n\nMessage:\n' + msg); window.location.href = 'mailto:yumicodes.enterprice@gmail.com?subject=' + subject + '&body=' + body; document.getElementById('formSuccess').style.display = 'block'; }
+  </script>
+</body>
+</html>
