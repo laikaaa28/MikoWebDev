@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Miko's — Web Dev & Product Photography</title>
+  <title>Go Digitals — Web Dev & Product Photography</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --black: #080808;
-      --off-black: #111111;
-      --card: #161616;
-      --amber: #FF6B00;
-      --amber-dim: rgba(255,107,0,0.12);
-      --white: #F5F0EA;
-      --muted: #6b6b6b;
-      --border: rgba(245,240,234,0.08);
+      --black: #06060f;
+      --off-black: #0b0b1c;
+      --card: #10102a;
+      --amber: #FFD600;
+      --amber-dim: rgba(255,214,0,0.12);
+      --white: #d6eeff;
+      --muted: #4d6080;
+      --border: rgba(77,180,255,0.10);
+      --cyan: #3db8ff;
     }
 
     html { scroll-behavior: smooth; }
@@ -49,7 +50,7 @@
       position: fixed; top: 0; width: 100%; z-index: 1000;
       padding: 1.6rem 4rem;
       display: flex; justify-content: space-between; align-items: center;
-      background: rgba(8,8,8,0.85);
+      background: rgba(6,6,15,0.92);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
       transition: padding 0.4s;
@@ -85,7 +86,7 @@
       border-radius: 4px;
       font-weight: 700 !important;
     }
-    .nav-cta:hover { background: #ff8533 !important; color: var(--black) !important; }
+    .nav-cta:hover { background: #e6c200 !important; color: var(--black) !important; }
 
     /* hamburger */
     .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; }
@@ -151,14 +152,14 @@
     }
 
     .hero-left::before {
-      background: linear-gradient(135deg, #0a0a12 0%, #1a1a2a 50%, #0a0510 100%);
+      background: linear-gradient(135deg, #06060f 0%, #0d1a3a 50%, #050a1a 100%);
     }
     .hero-left::after {
       background: linear-gradient(to top, rgba(8,8,8,0.97) 0%, rgba(8,8,8,0.3) 60%, transparent 100%);
     }
 
     .hero-right::before {
-      background: linear-gradient(135deg, #120a00 0%, #2a1500 50%, #1a0a00 100%);
+      background: linear-gradient(135deg, #060c1a 0%, #0a1530 50%, #04090f 100%);
     }
     .hero-right::after {
       background: linear-gradient(to top, rgba(8,8,8,0.97) 0%, rgba(8,8,8,0.3) 60%, transparent 100%);
@@ -178,15 +179,15 @@
       pointer-events: none;
       letter-spacing: 0.05em;
     }
-    .hero-left .hero-bg-text { color: #4444ff; }
+    .hero-left .hero-bg-text { color: #3db8ff; }
     .hero-right .hero-bg-text { color: var(--amber); }
 
     /* grid lines decoration */
     .hero-grid {
       position: absolute; inset: 0; z-index: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+        linear-gradient(rgba(61,184,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(61,184,255,0.03) 1px, transparent 1px);
       background-size: 60px 60px;
     }
 
@@ -251,7 +252,7 @@
       background: var(--amber);
       color: var(--black);
     }
-    .hero-btn-amber:hover { background: #ff8533; transform: translateY(-2px); }
+    .hero-btn-amber:hover { background: #e6c200; transform: translateY(-2px); }
 
     .hero-btn .arrow { font-size: 1.1rem; transition: transform 0.3s; }
     .hero-btn:hover .arrow { transform: translateX(4px); }
@@ -414,10 +415,10 @@
       transition: transform 0.6s ease;
     }
     .photo-cell:hover::before { transform: scale(1.05); }
-    .photo-cell-1::before { background: linear-gradient(135deg, #1a0f00 0%, #3d2200 100%); }
-    .photo-cell-2::before { background: linear-gradient(135deg, #001a0f 0%, #003d22 100%); }
-    .photo-cell-3::before { background: linear-gradient(135deg, #0f001a 0%, #22003d 100%); }
-    .photo-cell-4::before { background: linear-gradient(135deg, #1a0000 0%, #3d0000 100%); }
+    .photo-cell-1::before { background: linear-gradient(135deg, #060c20 0%, #0d1f4a 100%); }
+    .photo-cell-2::before { background: linear-gradient(135deg, #04101f 0%, #082040 100%); }
+    .photo-cell-3::before { background: linear-gradient(135deg, #080414 0%, #150a3d 100%); }
+    .photo-cell-4::before { background: linear-gradient(135deg, #06101a 0%, #0d2040 100%); }
     .photo-cell-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(to top, rgba(8,8,8,0.95) 0%, transparent 60%);
@@ -544,12 +545,12 @@
       transition: border-color 0.3s, transform 0.3s;
     }
     .price-card:hover {
-      border-color: rgba(255,107,0,0.35);
+      border-color: rgba(61,184,255,0.35);
       transform: translateY(-4px);
     }
     .price-card.featured {
       border-color: var(--amber);
-      background: linear-gradient(135deg, #1a0d00, #161616);
+      background: linear-gradient(135deg, #0a1530, #10102a);
     }
     .price-card.featured::before {
       content: 'MOST POPULAR';
@@ -620,7 +621,7 @@
     .price-card.featured .price-cta {
       background: var(--amber); border-color: var(--amber); color: var(--black);
     }
-    .price-card.featured .price-cta:hover { background: #ff8533; }
+    .price-card.featured .price-cta:hover { background: #e6c200; }
 
     /* ── FAQ ── */
     #faq { background: var(--off-black); }
@@ -675,7 +676,7 @@
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(8rem, 18vw, 20rem);
       line-height: 1;
-      color: rgba(255,107,0,0.04);
+      color: rgba(61,184,255,0.04);
       white-space: nowrap;
       pointer-events: none;
     }
@@ -691,7 +692,7 @@
     .contact-icon {
       width: 44px; height: 44px;
       background: var(--amber-dim);
-      border: 1px solid rgba(255,107,0,0.2);
+      border: 1px solid rgba(255,214,0,0.2);
       border-radius: 6px;
       display: flex; align-items: center; justify-content: center;
       font-size: 1.1rem;
@@ -767,7 +768,7 @@
       margin-top: 1rem;
       transition: all 0.3s;
     }
-    .form-submit:hover { background: #ff8533; transform: translateY(-2px); }
+    .form-submit:hover { background: #e6c200; transform: translateY(-2px); }
     .form-submit .arrow { transition: transform 0.3s; }
     .form-submit:hover .arrow { transform: translateX(4px); }
 
@@ -884,7 +885,7 @@
 
   <!-- Nav -->
   <nav id="navbar">
-    <a href="#" class="nav-logo">MIKO<span>.</span></a>
+    <a href="#" class="nav-logo">GO <span>DIGITALS</span></a>
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>
       <li><a href="#photography">Photography</a></li>
@@ -1276,7 +1277,7 @@
           <div class="contact-icon">📧</div>
           <div>
             <h5>Email</h5>
-            <a href="mailto:yumicodes.enterprice@gmail.com">yumicodes.enterprice@gmail.com</a>
+            <a href="/cdn-cgi/l/email-protection#3d444850545e5259584e13585349584f4d4f545e587d5a505c5451135e5250"><span class="__cf_email__" data-cfemail="f68f839b9f9599929385d8939882938486849f9593b6919b979f9ad895999b">[email&#160;protected]</span></a>
           </div>
         </div>
         <div class="contact-detail">
@@ -1350,7 +1351,7 @@
 
   <!-- ── FOOTER ── -->
   <footer>
-    <a href="#home" class="footer-logo">MIKO<span>.</span></a>
+    <a href="#home" class="footer-logo">GO <span>DIGITALS</span></a>
     <ul class="footer-links">
       <li><a href="#services">Services</a></li>
       <li><a href="#photography">Photography</a></li>
@@ -1358,10 +1359,10 @@
       <li><a href="template-gallery.html">Templates</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <p class="footer-copy">© 2026 Miko's Web Dev &amp; Photo Studio</p>
+    <p class="footer-copy">© 2026 Go Digitals. All rights reserved.</p>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // ── Cursor ──
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', e => {
@@ -1425,12 +1426,4 @@
       const body = encodeURIComponent(
         'Hi Miko!\n\nName: ' + name +
         '\nService: ' + service +
-        '\nBudget: ' + (document.getElementById('cBudget').value || 'Not specified') +
-        '\n\nMessage:\n' + msg
-      );
-      window.location.href = 'mailto:yumicodes.enterprice@gmail.com?subject=' + subject + '&body=' + body;
-      document.getElementById('formSuccess').style.display = 'block';
-    }
-  </script>
-</body>
-</html>
+        '\nBudget: ' + (document.getElementById('cBudget').value || 'Not
